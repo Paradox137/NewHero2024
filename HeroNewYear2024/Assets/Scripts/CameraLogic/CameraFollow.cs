@@ -4,24 +4,15 @@ namespace HeroScripts.CameraLogic
 {
 	public class CameraFollow : MonoBehaviour
 	{
-		[SerializeField] private float _rotationAngleX;
-		[SerializeField] private float _distance;
-		[SerializeField] private float _offsetY;
-		
-		[SerializeField] private Transform _following;
-
+		public Transform _following;
+		Vector3 targetPos;
+		public Vector3 offsetPos;
+		public float moveSpeed = 5;
+		public float smooth = 0.2f;
+		private Vector3 velocity = Vector3.zero;
 		private void LateUpdate()
 		{
-			if (_following == null)
-			{
-				return;
-			}
-
-			Quaternion rotation = Quaternion.Euler(_rotationAngleX, 0, 0);
-			Vector3 position = rotation * new Vector3(0, 0, -_distance) + FollowingPointPosition();
-
-			transform.rotation = rotation;
-			transform.position = position;
+			MoveWithTarget();
 		}
 
 		public void Follow(GameObject following)
@@ -29,12 +20,11 @@ namespace HeroScripts.CameraLogic
 			_following = following.transform;
 		}
 
-		private Vector3 FollowingPointPosition()
+		void MoveWithTarget()
 		{
-			Vector3 followingPosition = _following.position;
-			followingPosition.y += _offsetY;
-
-			return followingPosition;
+			targetPos = _following.transform.position + offsetPos;
+			//transform.position = Vector3.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime* smooth);
+			transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smooth);
 		}
 	}
 }
