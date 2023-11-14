@@ -28,34 +28,19 @@ namespace HeroScripts.Hero
 
 		private void Update()
 		{
-			//RotateIsometric();
-			
 			Vector3 movementVector = Vector3.zero;
 
 			if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
 			{
 				movementVector = _camera.transform.TransformDirection(_inputService.Axis);
 				movementVector.y = 0;
-				movementVector.ToIso();
 				movementVector.Normalize();
-				
 				transform.forward = movementVector;
 			}
 
 			movementVector += Physics.gravity;
 			
 			_characterController.Move(movementVector * (_movementSpeed * Time.deltaTime));
-		}
-
-
-		private void RotateIsometric()
-		{
-			Vector3  relative = (transform.position + _camera.transform.TransformDirection(_inputService.Axis).ToIso())
-				- transform.position;
-		
-			var rot = Quaternion.LookRotation(relative, Vector3.up);
-
-			transform.rotation = rot;
 		}
 		private void CameraFollow() => _camera.GetComponentInParent<CameraFollow>().Follow(gameObject);
 	}
