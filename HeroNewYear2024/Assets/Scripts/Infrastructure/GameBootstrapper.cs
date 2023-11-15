@@ -10,6 +10,8 @@ namespace HeroScripts.Infrastructure
 		{
 			_game = new Game();
 			
+			_game.StateMachine.Enter<BootstrapState>();
+			
 			DontDestroyOnLoad(this);
 		}
 	}

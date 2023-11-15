@@ -6,17 +6,11 @@ namespace HeroScripts.Infrastructure
 	public class Game
 	{
 		public static IInputService InputService;
+		public GameStateMachine StateMachine;
 
 		public Game()
 		{
-			RegisterInput();
-		}
-		private static void RegisterInput()
-		{
-			/*if (Application.isMobilePlatform)
-				InputService = new MobileInputService();
-			else*/
-			InputService = new ComputerInputService();
+			StateMachine = new GameStateMachine();
 		}
 	}
 }
