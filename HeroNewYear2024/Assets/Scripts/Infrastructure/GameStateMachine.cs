@@ -8,11 +8,11 @@ namespace HeroScripts.Infrastructure
 		private readonly Dictionary<Type, IState> _states;
 		private IState _activeState;
 
-		public GameStateMachine()
+		public GameStateMachine(SceneLoader __sceneLoader)
 		{
 			_states = new Dictionary<Type, IState>()
 			{
-				[typeof(BootstrapState)] = new BootstrapState(this),
+				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader),
 			};
 		}
 
