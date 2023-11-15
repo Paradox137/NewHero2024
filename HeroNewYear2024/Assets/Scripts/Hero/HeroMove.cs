@@ -22,6 +22,8 @@ namespace HeroScripts.Hero
 		private void Start()
 		{
 			_camera = Camera.main;
+
+			CameraFollow();
 		}
 
 		private void Update()
@@ -40,5 +42,6 @@ namespace HeroScripts.Hero
 			
 			_characterController.Move(movementVector * (_movementSpeed * Time.deltaTime));
 		}
+		private void CameraFollow() => _camera.GetComponentInParent<CameraFollow>().Follow(gameObject);
 	}
 }
