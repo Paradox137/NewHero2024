@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace HeroScripts.Infrastructure
 {
-	public class GameBootstrapper : MonoBehaviour
+	public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
 	{
 		private Game _game;
 		private void Awake()
