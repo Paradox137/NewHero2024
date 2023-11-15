@@ -1,6 +1,6 @@
 namespace HeroScripts.Infrastructure
 {
-	public class LoadLevelState : IState
+	public class LoadLevelState : IPayloadedState<string>
 	{
 		private readonly GameStateMachine _gameStateMachine;
 		private readonly SceneLoader _sceneLoader;

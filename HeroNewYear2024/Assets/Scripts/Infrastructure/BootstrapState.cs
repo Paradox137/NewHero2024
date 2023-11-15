@@ -5,6 +5,8 @@ namespace HeroScripts.Infrastructure
 	public class BootstrapState : IState
 	{
 		private const string Initial = "Initial";
+		private const string Test = "test";
+			
 		private readonly GameStateMachine _stateMachine;
 		private readonly SceneLoader _sceneLoader;
 		public BootstrapState(GameStateMachine __stateMachine, SceneLoader __sceneLoader)
@@ -20,7 +22,7 @@ namespace HeroScripts.Infrastructure
 		}
 		private void EnterLoadLevel()
 		{
-			 _stateMachine.Enter<LoadLevelState>();
+			 _stateMachine.Enter<LoadLevelState, string>(Test);
 		}
 		public void Exit()
 		{
