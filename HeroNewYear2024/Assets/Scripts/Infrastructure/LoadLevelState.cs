@@ -2,7 +2,6 @@ namespace HeroScripts.Infrastructure
 {
 	public class LoadLevelState : IState
 	{
-		private const string Test = "test";
 		private readonly GameStateMachine _gameStateMachine;
 		private readonly SceneLoader _sceneLoader;
 
@@ -13,9 +12,9 @@ namespace HeroScripts.Infrastructure
 
 		}
 			
-		public void Enter()
+		public void Enter(string sceneName)
 		{
-			_sceneLoader.Load(Test);
+			_sceneLoader.Load(sceneName);
 		}
 		public void Exit()
 		{
