@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HeroScripts.Logic;
 
 namespace HeroScripts.Infrastructure
 {
@@ -8,12 +9,13 @@ namespace HeroScripts.Infrastructure
 		private readonly Dictionary<Type, IExitableState> _states;
 		private IExitableState _activeState;
 
-		public GameStateMachine(SceneLoader __sceneLoader)
+		public GameStateMachine(SceneLoader __sceneLoader, LoadingCurtain __loadingCurtain)
 		{
 			_states = new Dictionary<Type, IExitableState>()
 			{
 				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader),
-				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader),
+				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, __loadingCurtain),
+				[typeof(GameLoopState)] = new GameLoopState(this),
 			};
 		}
 		public void Enter<TState>() where TState : class, IState
@@ -24,7 +26,7 @@ namespace HeroScripts.Infrastructure
 		}
 		public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
 		{
-			TState state = GetState<TState>();
+			TState state = ChangeState<TState>();
 
 			state.Enter(payload);
 		}

@@ -1,4 +1,5 @@
-﻿using HeroScripts.Services.Input;
+﻿using HeroScripts.Logic;
+using HeroScripts.Services.Input;
 using UnityEngine;
 
 namespace HeroScripts.Infrastructure
@@ -8,9 +9,10 @@ namespace HeroScripts.Infrastructure
 		public static IInputService InputService;
 		public GameStateMachine StateMachine;
 
-		public Game(ICoroutineRunner __coroutineRunner)
+		public Game(ICoroutineRunner __coroutineRunner, LoadingCurtain __loadingCurtain)
 		{
-			StateMachine = new GameStateMachine(new SceneLoader(__coroutineRunner));
+			StateMachine = new GameStateMachine(new SceneLoader(__coroutineRunner),
+				__loadingCurtain);
 		}
 	}
 }
