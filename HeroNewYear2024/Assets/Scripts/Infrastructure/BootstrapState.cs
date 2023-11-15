@@ -20,7 +20,7 @@ namespace HeroScripts.Infrastructure
 		}
 		private void EnterLoadLevel()
 		{
-			
+			 _stateMachine.Enter<LoadLevelState>();
 		}
 		public void Exit()
 		{

@@ -13,6 +13,7 @@ namespace HeroScripts.Infrastructure
 			_states = new Dictionary<Type, IState>()
 			{
 				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader),
+				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader),
 			};
 		}
 
@@ -25,5 +26,6 @@ namespace HeroScripts.Infrastructure
 
 			state.Enter();
 		}
+		
 	}
 }
