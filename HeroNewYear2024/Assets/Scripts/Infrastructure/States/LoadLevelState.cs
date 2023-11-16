@@ -11,13 +11,14 @@ namespace HeroScripts.Infrastructure
 		private readonly LoadingCurtain _loadingCurtain;
 		
 		private const string InitialPointTag = "InitialPoint";
-		private readonly IGameFactory _gameFactory;
+		private IGameFactory _gameFactory;
 
-		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
+		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
 		{
 			_gameStateMachine = gameStateMachine;
 			_sceneLoader = sceneLoader;
 			_loadingCurtain = loadingCurtain;
+			_gameFactory = gameFactory;
 		}
 
 		public void Enter(string sceneName)

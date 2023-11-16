@@ -15,7 +15,8 @@ namespace HeroScripts.Infrastructure
 			_states = new Dictionary<Type, IExitableState>()
 			{
 				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader, __allServices),
-				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, __loadingCurtain),
+				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, 
+					__loadingCurtain, __allServices.Single<IGameFactory>()),
 				[typeof(GameLoopState)] = new GameLoopState(this),
 			};
 		}

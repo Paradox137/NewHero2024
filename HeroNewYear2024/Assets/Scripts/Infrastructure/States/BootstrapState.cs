@@ -17,6 +17,8 @@ namespace HeroScripts.Infrastructure
 			_stateMachine = __stateMachine;
 			_sceneLoader = __sceneLoader;
 			_allServices = __allServices;
+
+			RegisterService();
 		}
 		public void Enter()
 		{

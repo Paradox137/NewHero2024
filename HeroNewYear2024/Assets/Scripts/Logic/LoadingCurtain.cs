@@ -23,7 +23,6 @@ namespace HeroScripts.Logic
     
 		private IEnumerator DoFadeIn()
 		{
-			Debug.Log("hide");
 			while (Curtain.alpha > 0)
 			{
 				Curtain.alpha -= 0.03f;
