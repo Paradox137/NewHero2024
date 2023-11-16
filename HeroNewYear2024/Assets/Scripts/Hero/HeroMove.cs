@@ -1,6 +1,7 @@
 ﻿using System;
 using HeroScripts.CameraLogic;
 using HeroScripts.Infrastructure;
+using HeroScripts.Infrastructure.Services;
 using HeroScripts.Services.Input;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace HeroScripts.Hero
 
 		private void Awake()
 		{
-			_inputService = Game.InputService;
+			_inputService = AllServices.Container.Single<IInputService>();
 		}
 
 		private void Start()

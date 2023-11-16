@@ -22,23 +22,22 @@ namespace HeroScripts.Infrastructure
 			
 			_sceneLoader.Load(Initial, EnterLoadLevel);
 		}
-		private void EnterLoadLevel()
-		{
-			 _stateMachine.Enter<LoadLevelState, string>(Test);
-		}
 		public void Exit()
 		{
 			
 		}
+		private void EnterLoadLevel()
+		{
+			 _stateMachine.Enter<LoadLevelState, string>(Test);
+		}
 
 		private void RegisterService()
 		{
+			AllServices.Container.RegisterSingle<IInputService>(InputService());
 			AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssetsProvider>()));
-			
-			Game.InputService = new ComputerInputService();
 		}
 		
-		private static IInputService RegisterInput()
+		private static IInputService InputService()
 		{
 			/*if (Application.isMobilePlatform)
 				InputService = new MobileInputService();
