@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HeroScripts.Infrastructure.Services;
 using HeroScripts.Logic;
 
 namespace HeroScripts.Infrastructure
@@ -9,11 +10,11 @@ namespace HeroScripts.Infrastructure
 		private readonly Dictionary<Type, IExitableState> _states;
 		private IExitableState _activeState;
 
-		public GameStateMachine(SceneLoader __sceneLoader, LoadingCurtain __loadingCurtain)
+		public GameStateMachine(SceneLoader __sceneLoader, LoadingCurtain __loadingCurtain, AllServices __allServices)
 		{
 			_states = new Dictionary<Type, IExitableState>()
 			{
-				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader),
+				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader, __allServices),
 				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, __loadingCurtain),
 				[typeof(GameLoopState)] = new GameLoopState(this),
 			};
