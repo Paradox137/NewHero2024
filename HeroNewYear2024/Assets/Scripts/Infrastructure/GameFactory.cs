@@ -1,35 +1,26 @@
-﻿using UnityEngine;
+﻿using HeroScripts.Infrastructure.AssetManagement;
+using UnityEngine;
 
 namespace HeroScripts.Infrastructure
 {
 	public class GameFactory : IGameFactory
 	{
-		private const string HeroPath = "Hero/hero";
-		private const string HudPath = "Hud/hud";
-		
+
+		private readonly AssetProvider _assetProvider;
+		public GameFactory(AssetProvider assetProvider)
+		{
+			_assetProvider = assetProvider;
+		}
 		public GameObject CreateHero(GameObject at)
 		{
-			return Instantiate(HeroPath, at.transform.position);
+			return _assetProvider.Instantiate(AssetsPath.HeroPath, at.transform.position);
 		}
 		
 		public void CreateHud()
 		{
-			Instantiate(HudPath);
+			_assetProvider.Instantiate(AssetsPath.HudPath);
 		}
 		
-		private static GameObject Instantiate(string path)
-		{
-			var prefab = Resources.Load<GameObject>(path);
-
-			return Object.Instantiate(prefab);
-		}
-
-		private static GameObject Instantiate(string path, Vector3 at)
-		{
-			var prefab = Resources.Load<GameObject>(path);
-
-			return Object.Instantiate(prefab, at, Quaternion.identity);
-		}
-
 	}
+
 }
