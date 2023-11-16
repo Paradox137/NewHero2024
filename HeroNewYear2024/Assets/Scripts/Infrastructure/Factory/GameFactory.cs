@@ -5,9 +5,8 @@ namespace HeroScripts.Infrastructure
 {
 	public class GameFactory : IGameFactory
 	{
-
-		private readonly AssetProvider _assetProvider;
-		public GameFactory(AssetProvider assetProvider)
+		private readonly IAssetsProvider _assetProvider;
+		public GameFactory(IAssetsProvider assetProvider)
 		{
 			_assetProvider = assetProvider;
 		}

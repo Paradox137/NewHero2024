@@ -2,7 +2,7 @@
 
 namespace HeroScripts.Infrastructure.AssetManagement
 {
-	public class AssetProvider : IAssetProvider
+	public class AssetsProvider : IAssetProvider
 	{
 		public GameObject Instantiate(string path, Vector3 at)
 		{

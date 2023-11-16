@@ -1,4 +1,6 @@
-﻿using HeroScripts.Services.Input;
+﻿using HeroScripts.Infrastructure.AssetManagement;
+using HeroScripts.Infrastructure.Services;
+using HeroScripts.Services.Input;
 
 namespace HeroScripts.Infrastructure
 {
@@ -31,6 +33,8 @@ namespace HeroScripts.Infrastructure
 
 		private void RegisterService()
 		{
+			AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssetsProvider>()));
+			
 			Game.InputService = new ComputerInputService();
 		}
 		
