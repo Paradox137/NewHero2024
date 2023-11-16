@@ -11,8 +11,7 @@ namespace HeroScripts.Infrastructure
 		private readonly LoadingCurtain _loadingCurtain;
 		
 		private const string InitialPointTag = "InitialPoint";
-		private const string HeroPath = "Hero/hero";
-		private const string HudPath = "Hud/hud";
+		private readonly IGameFactory _gameFactory;
 
 		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
 		{
@@ -32,10 +31,9 @@ namespace HeroScripts.Infrastructure
 		}
 		private void onLoaded()
 		{
-			GameObject initialPoint = GameObject.FindWithTag(InitialPointTag);
-			GameObject hero = Instantiate(HeroPath, initialPoint.transform.position);
+			GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
 
-			Instantiate(HudPath);
+			_gameFactory.CreateHud();
 
 			CameraFollow(hero);
 			
@@ -46,20 +44,6 @@ namespace HeroScripts.Infrastructure
 		{
 			if (Camera.main != null)
 				Camera.main.GetComponentInParent<CameraFollow>().Follow(hero);
-		}
-
-		private static GameObject Instantiate(string path)
-		{
-			var prefab = Resources.Load<GameObject>(path);
-
-			return Object.Instantiate(prefab);
-		}
-
-		private static GameObject Instantiate(string path, Vector3 at)
-		{
-			var prefab = Resources.Load<GameObject>(path);
-
-			return Object.Instantiate(prefab, at, Quaternion.identity);
 		}
 	}
 }
