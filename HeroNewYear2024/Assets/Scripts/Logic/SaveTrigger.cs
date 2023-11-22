@@ -8,12 +8,11 @@ namespace HeroScripts.Logic
 	[RequireComponent(typeof(BoxCollider))]
 	public class SaveTrigger : MonoBehaviour
 	{
-		private ISavedLoadService _saveLoadService;
+		private ISaveLoadService _saveLoadService;
 		private void Awake()
 		{
-			_saveLoadService = AllServices.Container.Single<ISavedLoadService>();
+			_saveLoadService = AllServices.Container.Single<ISaveLoadService>();
 		}
-
 		private void OnTriggerEnter(Collider other)
 		{
 			_saveLoadService.SaveProgress();

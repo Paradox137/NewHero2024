@@ -41,7 +41,7 @@ namespace HeroScripts.Infrastructure
 
 		private GameObject InstantiateRegistered(string prefabPath, Vector3 position)
 		{
-			GameObject gameObject = _assetProvider.Instantiate(AssetsPath.HeroPath, position);
+			GameObject gameObject = _assetProvider.Instantiate(prefabPath, position);
 
 			foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
 				Register(progressReader);
@@ -50,7 +50,7 @@ namespace HeroScripts.Infrastructure
 		}
 		private GameObject InstantiateRegistered(string prefabPath)
 		{
-			GameObject gameObject = _assetProvider.Instantiate(AssetsPath.HeroPath);
+			GameObject gameObject = _assetProvider.Instantiate(prefabPath);
 
 			foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
 				Register(progressReader);

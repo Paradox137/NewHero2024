@@ -23,7 +23,7 @@ namespace HeroScripts.Infrastructure
 					__loadingCurtain, __allServices.Single<IGameFactory>(), __allServices.Single<IPersistentProgressService>()),
 				
 				[typeof(LoadProgressState)] = new LoadProgressState(this, __allServices.Single<IPersistentProgressService>(), 
-					__allServices.Single<ISavedLoadService>()),
+					__allServices.Single<ISaveLoadService>()),
 				
 				[typeof(GameLoopState)] = new GameLoopState(this),
 			};

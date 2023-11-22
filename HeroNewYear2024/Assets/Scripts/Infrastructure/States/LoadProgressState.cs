@@ -8,8 +8,8 @@ namespace HeroScripts.Infrastructure.States
 	{
 		private readonly GameStateMachine _gameStateMachine;
 		private readonly IPersistentProgressService _progressService;
-		private readonly ISavedLoadService _saveLoadService;
-		public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISavedLoadService savedLoadService)
+		private readonly ISaveLoadService _saveLoadService;
+		public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService savedLoadService)
 		{
 			_gameStateMachine = gameStateMachine;
 			_progressService = progressService;

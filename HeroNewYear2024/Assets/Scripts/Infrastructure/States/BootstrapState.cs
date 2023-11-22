@@ -10,8 +10,7 @@ namespace HeroScripts.Infrastructure
 	public class BootstrapState : IState
 	{
 		private const string Initial = "Initial";
-		private const string Test = "test";
-			
+
 		private readonly GameStateMachine _stateMachine;
 		private readonly SceneLoader _sceneLoader;
 		private readonly AllServices _allServices;
@@ -25,8 +24,6 @@ namespace HeroScripts.Infrastructure
 		}
 		public void Enter()
 		{
-			RegisterService();
-			
 			_sceneLoader.Load(Initial, EnterLoadLevel);
 		}
 		public void Exit()
@@ -45,11 +42,11 @@ namespace HeroScripts.Infrastructure
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
 
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
-			
-			_allServices.RegisterSingle<ISavedLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
-				_allServices.Single<IGameFactory>()));
-			
+
 			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>()));
+			
+			_allServices.RegisterSingle<ISaveLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
+				_allServices.Single<IGameFactory>()));
 		}
 		
 		private static IInputService InputService()

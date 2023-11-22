@@ -2,7 +2,7 @@
 
 namespace HeroScripts.Infrastructure.Services.SaveLoad
 {
-	public interface ISavedLoadService : IService
+	public interface ISaveLoadService : IService
 	{
 		void SaveProgress();
 		PlayerProgress LoadProgress();

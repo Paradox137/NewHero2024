@@ -15,6 +15,12 @@ namespace HeroScripts
 		public static Vector3 AsUnityVector3(this Vector3Data vector3Data) 
 			=> new Vector3(vector3Data.X, vector3Data.Y, vector3Data.Z);
 
+		public static Vector3 AddYPosition(this Vector3 vector3, float y)
+		{
+			vector3.y += y;
+			return vector3;
+		}
+
 		public static T ToDeserializedFromJSON<T>(this string json) => JsonUtility.FromJson<T>(json);
 		public static string ToJSON(this object obj) => JsonUtility.ToJson(obj);
 	}
