@@ -20,7 +20,7 @@ namespace HeroScripts.Infrastructure
 				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader, __allServices),
 				
 				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, 
-					__loadingCurtain, __allServices.Single<IGameFactory>()),
+					__loadingCurtain, __allServices.Single<IGameFactory>(), __allServices.Single<IPersistentProgressService>()),
 				
 				[typeof(LoadProgressState)] = new LoadProgressState(this, __allServices.Single<IPersistentProgressService>(), 
 					__allServices.Single<ISavedLoadService>()),

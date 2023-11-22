@@ -41,9 +41,14 @@ namespace HeroScripts.Infrastructure
 		private void RegisterService()
 		{
 			_allServices.RegisterSingle<IInputService>(InputService());
+			
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
+
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
-			_allServices.RegisterSingle<ISavedLoadService>(new SaveLoadService());
+			
+			_allServices.RegisterSingle<ISavedLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
+				_allServices.Single<IGameFactory>()));
+			
 			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>()));
 		}
 		

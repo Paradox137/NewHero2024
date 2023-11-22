@@ -1,4 +1,5 @@
 using HeroScripts.CameraLogic;
+using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Logic;
 using UnityEngine;
 
@@ -12,13 +13,15 @@ namespace HeroScripts.Infrastructure
 		
 		private const string InitialPointTag = "InitialPoint";
 		private IGameFactory _gameFactory;
+		private readonly IPersistentProgressService _progressService;
 
-		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
+		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IPersistentProgressService progressService)
 		{
 			_gameStateMachine = gameStateMachine;
 			_sceneLoader = sceneLoader;
 			_loadingCurtain = loadingCurtain;
 			_gameFactory = gameFactory;
+			_progressService = progressService;
 		}
 
 		public void Enter(string sceneName)
@@ -33,13 +36,25 @@ namespace HeroScripts.Infrastructure
 		}
 		private void onLoaded()
 		{
+			InitGameWorld();
+			InformProgressReaders();
+			
+			_gameStateMachine.Enter<GameLoopState>();
+		}
+		private void InformProgressReaders()
+		{
+			foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+			{
+				progressReader.LoadProgress(_progressService.Progress);
+			}
+		}
+		private void InitGameWorld()
+		{
 			GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
 
 			_gameFactory.CreateHud();
 
 			CameraFollow(hero);
-			
-			_gameStateMachine.Enter<GameLoopState>();
 		}
 
 		private void CameraFollow(GameObject hero)
