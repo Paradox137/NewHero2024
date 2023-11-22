@@ -24,6 +24,7 @@ namespace HeroScripts.Infrastructure
 		public void Enter(string sceneName)
 		{
 			_loadingCurtain.Show();
+			_gameFactory.CleanUp();
 			_sceneLoader.Load(sceneName, onLoaded);
 		}
 		public void Exit()
