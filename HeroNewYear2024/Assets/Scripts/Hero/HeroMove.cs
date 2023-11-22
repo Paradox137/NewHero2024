@@ -1,13 +1,15 @@
 ﻿using System;
 using HeroScripts.CameraLogic;
+using HeroScripts.Data;
 using HeroScripts.Infrastructure;
 using HeroScripts.Infrastructure.Services;
+using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Services.Input;
 using UnityEngine;
 
 namespace HeroScripts.Hero
 {
-	public class HeroMove : MonoBehaviour
+	public class HeroMove : MonoBehaviour, ISavedProgress
 	{
 		[SerializeField] private CharacterController _characterController;
 		[SerializeField] private float _movementSpeed;
@@ -40,6 +42,14 @@ namespace HeroScripts.Hero
 			movementVector += Physics.gravity;
 			
 			_characterController.Move(movementVector * (_movementSpeed * Time.deltaTime));
+		}
+		public void LoadProgress(PlayerProgress progress)
+		{
+			
+		}
+		public void UpdateProgress(PlayerProgress progress)
+		{
+			
 		}
 	}
 }

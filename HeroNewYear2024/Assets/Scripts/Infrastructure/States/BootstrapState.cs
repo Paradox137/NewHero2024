@@ -1,5 +1,6 @@
 ﻿using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Services;
+using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Services.Input;
 
 namespace HeroScripts.Infrastructure
@@ -39,6 +40,7 @@ namespace HeroScripts.Infrastructure
 		{
 			_allServices.RegisterSingle<IInputService>(InputService());
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
+			_allServices.RegisterSingle<IPersistentProgress>(new PersistentProgress());
 			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>()));
 		}
 		
