@@ -1,6 +1,8 @@
 ﻿using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
+using HeroScripts.Infrastructure.Services.SaveLoad;
+using HeroScripts.Infrastructure.States;
 using HeroScripts.Services.Input;
 
 namespace HeroScripts.Infrastructure
@@ -33,7 +35,7 @@ namespace HeroScripts.Infrastructure
 		}
 		private void EnterLoadLevel()
 		{
-			 _stateMachine.Enter<LoadLevelState, string>(Test);
+			_stateMachine.Enter<LoadProgressState>();
 		}
 
 		private void RegisterService()
@@ -41,6 +43,7 @@ namespace HeroScripts.Infrastructure
 			_allServices.RegisterSingle<IInputService>(InputService());
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
+			_allServices.RegisterSingle<ISavedLoadService>(new SaveLoadService());
 			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>()));
 		}
 		

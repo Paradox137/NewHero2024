@@ -6,6 +6,11 @@ namespace HeroScripts.Data
 	public class WorldData
 	{
 		public PositionOnLevel PositionOnLevel;
+
+		public WorldData(string initialLevel)
+		{
+			PositionOnLevel = new PositionOnLevel(initialLevel);
+		}
 	}
 	
 	[Serializable]
@@ -18,6 +23,10 @@ namespace HeroScripts.Data
 		{
 			Level = level;
 			Position = position;
+		}
+		public PositionOnLevel(string initialLevel)
+		{
+			Level = initialLevel;
 		}
 	}
 	public class Vector3Data

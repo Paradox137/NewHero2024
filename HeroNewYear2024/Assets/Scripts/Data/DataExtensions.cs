@@ -14,6 +14,7 @@ namespace HeroScripts
 		
 		public static Vector3 AsUnityVector3(this Vector3Data vector3Data) 
 			=> new Vector3(vector3Data.X, vector3Data.Y, vector3Data.Z);
-		
+
+		public static T ToDeserializedFromJSON<T>(this string json) => JsonUtility.FromJson<T>(json);
 	}
 }
