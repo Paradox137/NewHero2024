@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using HeroScripts.Infrastructure.Services;
+using HeroScripts.Infrastructure.Services.PersistentProgress;
+using HeroScripts.Infrastructure.Services.SaveLoad;
+using HeroScripts.Infrastructure.States;
 using HeroScripts.Logic;
 
 namespace HeroScripts.Infrastructure
@@ -15,8 +18,13 @@ namespace HeroScripts.Infrastructure
 			_states = new Dictionary<Type, IExitableState>()
 			{
 				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader, __allServices),
+				
 				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, 
 					__loadingCurtain, __allServices.Single<IGameFactory>()),
+				
+				[typeof(LoadProgressState)] = new LoadProgressState(this, __allServices.Single<IPersistentProgressService>(), 
+					__allServices.Single<ISavedLoadService>()),
+				
 				[typeof(GameLoopState)] = new GameLoopState(this),
 			};
 		}

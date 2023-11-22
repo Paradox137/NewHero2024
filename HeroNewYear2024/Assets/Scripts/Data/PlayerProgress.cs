@@ -6,5 +6,9 @@ namespace HeroScripts.Data
 	public class PlayerProgress
 	{
 		public WorldData WorldData;
+		public PlayerProgress(string initialLevel) 
+		{ 
+			
+		}
 	}
 }

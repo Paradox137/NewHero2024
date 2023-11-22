@@ -2,7 +2,7 @@
 
 namespace HeroScripts.Infrastructure.Services.PersistentProgress
 {
-	public interface IPersistentProgress : IService
+	public interface IPersistentProgressService : IService
 	{
 		PlayerProgress Progress { get; set; }
 	}
