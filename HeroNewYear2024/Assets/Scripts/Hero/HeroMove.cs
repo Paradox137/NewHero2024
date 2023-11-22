@@ -45,7 +45,7 @@ namespace HeroScripts.Hero
 		}
 		public void LoadProgress(PlayerProgress progress)
 		{
-			
+			progress.WorldData.Position = transform.position.AsVector3Data();
 		}
 		public void UpdateProgress(PlayerProgress progress)
 		{
