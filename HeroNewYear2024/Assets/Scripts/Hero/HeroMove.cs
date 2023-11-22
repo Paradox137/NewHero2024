@@ -6,6 +6,7 @@ using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Services.Input;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HeroScripts.Hero
 {
@@ -45,11 +46,26 @@ namespace HeroScripts.Hero
 		}
 		public void LoadProgress(PlayerProgress progress)
 		{
-			progress.WorldData.Position = transform.position.AsVector3Data();
+			if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+			{
+				Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+				
+				if (savedPosition != null)
+					DeformTransform(savedPosition);
+			}
 		}
+		
 		public void UpdateProgress(PlayerProgress progress)
 		{
-			
+			progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(),transform.position.AsVector3Data());
 		}
+		
+		private void DeformTransform(Vector3Data to)
+		{
+			_characterController.enabled = false;
+			transform.position = to.AsUnityVector3();
+			_characterController.enabled = true;
+		}
+		private static string CurrentLevel() => SceneManager.GetActiveScene().name;
 	}
 }
