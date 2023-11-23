@@ -58,7 +58,6 @@ namespace HeroScripts.Hero
 		public void UpdateProgress(PlayerProgress progress)
 		{
 			progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(),transform.position.AsVector3Data());
-			Debug.Log(progress.WorldData.PositionOnLevel.Position);
 		}
 		
 		private void DeformTransform(Vector3Data to)

@@ -14,12 +14,10 @@ namespace HeroScripts.Infrastructure.Services.SaveLoad
 		{
 			_progressService = progressService;
 			_gameFactory = gameFactory;
-			Debug.Log(_gameFactory.ProgressReaders.Count);
 		}
 		
 		public void SaveProgress()
 		{
-			Debug.Log(_gameFactory.ProgressWriters.Count + "when save");
 			foreach (ISavedProgress progressWriter in _gameFactory.ProgressWriters)
 			{
 				progressWriter.UpdateProgress(_progressService.Progress);
