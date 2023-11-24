@@ -268,6 +268,9 @@ GameObject:
   - component: {fileID: 6737366171504702195}
   - component: {fileID: 2922173375510403832}
   - component: {fileID: 2068868578401009354}
+  - component: {fileID: 7341927274432131294}
+  - component: {fileID: 7280811274396066212}
+  - component: {fileID: 1852492916773258128}
   m_Layer: 0
   m_Name: FreeLichHP
   m_TagString: Untagged
@@ -282,9 +285,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730752160533039274}
-  m_LocalRotation: {x: -0, y: -0.985968, z: -0, w: 0.16693479}
+  m_LocalRotation: {x: 0, y: -0.9859684, z: 0, w: 0.16693227}
   m_LocalPosition: {x: 3.28, y: 0, z: 2.64}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7166911829874299227}
@@ -335,6 +338,45 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7341927274432131294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730752160533039274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16721f57860c429b97d4213937c525ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Agent: {fileID: 2068868578401009354}
+--- !u!114 &7280811274396066212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730752160533039274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc5bc287bc645d39a7dcac3f14fe0a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1852492916773258128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730752160533039274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639e4b5e28614505b57951e0f1c2012f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Agent: {fileID: 2068868578401009354}
+  Animator: {fileID: 7280811274396066212}
 --- !u!1 &3808661361157658029
 GameObject:
   m_ObjectHideFlags: 0
