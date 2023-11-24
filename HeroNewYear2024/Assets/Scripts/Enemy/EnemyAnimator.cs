@@ -1,0 +1,34 @@
+﻿using System;
+using UnityEngine;
+
+namespace HeroScripts.Enemy
+{
+	public class EnemyAnimator : MonoBehaviour
+	{
+		private static readonly int Attack = Animator.StringToHash("Attack_1");
+		private static readonly int Speed = Animator.StringToHash("Speed");
+		private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+		private static readonly int Hit = Animator.StringToHash("Hit");
+		private readonly int Die = Animator.StringToHash("Die");
+		
+		private Animator _animator;
+		private void Awake()
+		{
+			_animator = GetComponent<Animator>();
+		}
+
+		public void PlayDeath() => _animator.SetTrigger(Die);
+		
+		public void PlayHit() => _animator.SetTrigger(Hit);
+		
+		public void PlayAttack() => _animator.SetTrigger(Attack);
+
+		public void StopMoving() => _animator.SetBool(IsMoving, false);
+
+		public void Move(float speed)
+		{
+			_animator.SetBool(IsMoving, true);
+			_animator.SetFloat(Speed, speed);
+		}
+	}
+}
