@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
@@ -18,13 +19,18 @@ namespace HeroScripts.Infrastructure
 		}
 		public GameObject CreateHero(GameObject at)
 		{
-			return InstantiateRegistered(AssetsPath.HeroPath, at.transform.position);
+			GameObject hero =InstantiateRegistered(AssetsPath.HeroPath, at.transform.position);
+			HeroGameObject = hero;
+			HeroCreated?.Invoke();
+			return hero;
 		}
 		
 		public void CreateHud()
 		{
 			InstantiateRegistered(AssetsPath.HudPath);
 		}
+		public GameObject HeroGameObject { get; private set; }
+		public event Action HeroCreated;
 
 		public void CleanUp()
 		{
