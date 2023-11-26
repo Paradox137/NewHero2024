@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace HeroScripts.Enemy
 {
-	public class AgentMoveToHero : MonoBehaviour
+	public class AgentMoveToHero : Follow
 	{
 		private const float MinimalDistance = 1f;
 		public NavMeshAgent Agent;
