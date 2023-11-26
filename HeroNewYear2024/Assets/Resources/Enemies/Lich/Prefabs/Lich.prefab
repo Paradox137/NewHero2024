@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2865852996547104019}
   - component: {fileID: 1574674093270452199}
+  - component: {fileID: 3925206233399384652}
   m_Layer: 13
   m_Name: AggroZone
   m_TagString: Untagged
@@ -79,12 +80,24 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 4
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3925206233399384652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412128355832732015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fd1587c77347668287853944667225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1605799580412619731
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,8 +337,9 @@ GameObject:
   - component: {fileID: 7341927274432131294}
   - component: {fileID: 7280811274396066212}
   - component: {fileID: 1852492916773258128}
+  - component: {fileID: 783663474376205275}
   m_Layer: 0
-  m_Name: FreeLichHP
+  m_Name: Lich
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,10 +394,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
-  m_Acceleration: 15
+  m_Speed: 0.78
+  m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 1600
+  m_AngularSpeed: 0
   m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -431,6 +445,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Agent: {fileID: 2068868578401009354}
   Animator: {fileID: 7280811274396066212}
+--- !u!114 &783663474376205275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730752160533039274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14326e0a6e3a4db6a02b6b94a12da320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerObserver: {fileID: 3925206233399384652}
+  Follow: {fileID: 7341927274432131294}
 --- !u!1 &3808661361157658029
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,13 @@ namespace HeroScripts.Enemy
 
 		private void OnTriggerEnter(Collider other)
 		{
+			Debug.Log("on");
 			TriggerEnter?.Invoke(other);
 		}
 
 		private void OnTriggerExit(Collider other)
 		{
+			Debug.Log("off");
 			TriggerExit?.Invoke(other);
 		}
 	}
