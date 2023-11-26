@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2865852996547104019}
   - component: {fileID: 1574674093270452199}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AggroZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
