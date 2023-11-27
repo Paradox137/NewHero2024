@@ -20,6 +20,7 @@ namespace HeroScripts.Enemy
 		private bool _isAttacking;
 		private int _layerMask;
 		private Collider[] _hits = new Collider[1];
+		private bool _attackIsActive;
 
 		private void Awake()
 		{
@@ -64,9 +65,12 @@ namespace HeroScripts.Enemy
 		}
 
 		private Vector3 StartHitPoint() => new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * TestDistance;
-		private bool CanAttack() => CooldownEnded() && !_isAttacking;
+		private bool CanAttack() => _attackIsActive && CooldownEnded() && !_isAttacking;
 		private bool CooldownEnded() => _attackCooldown <= 0;
 		private void OnHeroCreated() => _heroTransform = _factory.HeroGameObject.transform;
+		public void DisableAttack() => _attackIsActive = false;
+		public void EnableAttack() => _attackIsActive = true;
+		
 		private void UpdateCooldown()
 		{
 			if (!CooldownEnded())
@@ -81,6 +85,5 @@ namespace HeroScripts.Enemy
 
 			_isAttacking = true;
 		}
-
 	}
 }
