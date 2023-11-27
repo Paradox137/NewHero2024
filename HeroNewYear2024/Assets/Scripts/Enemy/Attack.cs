@@ -42,7 +42,7 @@ namespace HeroScripts.Enemy
 		{
 			if (Hit(out Collider hit))
 			{
-				
+				PhysicsDebug.DrawDebug(StartHitPoint(), RadiusAttackHit, 1f);
 			}
 		}
 
