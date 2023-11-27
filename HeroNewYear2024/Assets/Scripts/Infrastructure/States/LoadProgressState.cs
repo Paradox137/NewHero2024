@@ -29,6 +29,14 @@ namespace HeroScripts.Infrastructure.States
 		{
 			_progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
 		}
-		private PlayerProgress NewProgress() => new PlayerProgress("test");
+		private PlayerProgress NewProgress()
+		{
+			PlayerProgress progress = new PlayerProgress("test");
+
+			progress.HeroState.MaxHP = 50;
+			progress.HeroState.ResetHP();
+
+			return progress;			
+		}
 	}
 }
