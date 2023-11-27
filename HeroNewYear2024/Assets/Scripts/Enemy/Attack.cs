@@ -34,7 +34,7 @@ namespace HeroScripts.Enemy
 		private void Update()
 		{
 			UpdateCooldown();
-
+			
 			if(CanAttack())
 				StartAttack();
 		}
@@ -43,28 +43,28 @@ namespace HeroScripts.Enemy
 		{
 			if (Hit(out Collider hit))
 			{
-				PhysicsDebug.DrawDebug(StartHitPoint(), RadiusAttackHit, 1f);
+				PhysicsDebug.DrawDebug(StartHitPoint() + transform.forward * TestDistance, RadiusAttackHit, 1f);
 			}
 		}
 
 		private void OnAttackEnded()
 		{
 			_attackCooldown = AttackCooldown;
-			_isAttacking = true;
+			_isAttacking = false;
 		}
 		
 		private bool Hit(out Collider hit)
 		{
 			Vector3 startHitPoint = StartHitPoint();
 			
-			int hitCount = Physics.OverlapSphereNonAlloc(startHitPoint, RadiusAttackHit, _hits, _layerMask);
+			int hitCount = Physics.OverlapSphereNonAlloc(startHitPoint + transform.forward * TestDistance, RadiusAttackHit, _hits, _layerMask);
 
 			hit = _hits.FirstOrDefault();
 
 			return hitCount > 0;
 		}
 
-		private Vector3 StartHitPoint() => new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * TestDistance;
+		private Vector3 StartHitPoint() => new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 		private bool CanAttack() => _attackIsActive && CooldownEnded() && !_isAttacking;
 		private bool CooldownEnded() => _attackCooldown <= 0;
 		private void OnHeroCreated() => _heroTransform = _factory.HeroGameObject.transform;

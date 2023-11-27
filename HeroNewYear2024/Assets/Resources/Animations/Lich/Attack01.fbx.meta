@@ -216,14 +216,14 @@ ModelImporter:
       - time: 0.38609126
         functionName: OnAttack
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 3730752160533039274, guid: 9e20081d0f7ab684eb975a726df19161, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.97613364
         functionName: OnAttackEnded
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 3730752160533039274, guid: 9e20081d0f7ab684eb975a726df19161, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

@@ -12,7 +12,7 @@ namespace HeroScripts.Enemy
 		private void Start()
 		{
 			TriggerObserver.TriggerEnter += TriggerEnter;
-			TriggerObserver.TriggerEnter += DisableAttack;
+			TriggerObserver.TriggerExit += DisableAttack;
 			
 			Attack.DisableAttack();
 		}
