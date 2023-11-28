@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using HeroScripts.Hero;
 using HeroScripts.Infrastructure;
 using HeroScripts.Infrastructure.Services;
 using UnityEngine;
@@ -13,7 +14,8 @@ namespace HeroScripts.Enemy
 		[SerializeField] private float AttackCooldown = 3f;
 		[SerializeField] private float RadiusAttackHit = 0.5f;
 		[SerializeField] private float TestDistance = 0.5f;
-		
+		[SerializeField] private float Damage = 10f;
+
 		private IGameFactory _factory;
 		private Transform _heroTransform;
 		private float _attackCooldown;
@@ -43,6 +45,7 @@ namespace HeroScripts.Enemy
 		{
 			if (Hit(out Collider hit))
 			{
+				hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
 				PhysicsDebug.DrawDebug(StartHitPoint() + transform.forward * TestDistance, RadiusAttackHit, 1f);
 			}
 		}
