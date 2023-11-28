@@ -25,9 +25,9 @@ namespace HeroScripts.Infrastructure
 			return hero;
 		}
 		
-		public void CreateHud()
+		public GameObject CreateHud()
 		{
-			InstantiateRegistered(AssetsPath.HudPath);
+			return InstantiateRegistered(AssetsPath.HudPath);
 		}
 		public GameObject HeroGameObject { get; private set; }
 		public event Action HeroCreated;

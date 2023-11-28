@@ -1,4 +1,5 @@
-﻿using HeroScripts.Data;
+﻿using System;
+using HeroScripts.Data;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 
@@ -9,10 +10,20 @@ namespace HeroScripts.Hero
 	{
 		public HeroAnimator Animator;
 		private HeroState _state;
+
+		public Action HealthChanged;
 		public float Current
 		{
 			get => _state.CurrentHP;
-			set => _state.CurrentHP = value;
+			set
+			{
+				if (_state.CurrentHP != value)
+				{
+					_state.CurrentHP = value;
+					
+					HealthChanged?.Invoke();
+				}
+			}
 		}
 		public float Max
 		{
@@ -31,9 +42,9 @@ namespace HeroScripts.Hero
 
 		public void TakeDamage(float damage)
 		{
-			if(Current <= 0)
+			if (Current <= 0)
 				return;
-			
+
 			Current -= damage;
 			Animator.PlayHit();
 		}
