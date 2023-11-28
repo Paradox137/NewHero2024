@@ -1,9 +1,10 @@
 ﻿using System;
+using HeroScripts.Logic;
 using UnityEngine;
 
 namespace HeroScripts.Enemy
 {
-	public class EnemyHealth : MonoBehaviour
+	public class EnemyHealth : MonoBehaviour, IHealth
 	{
 		public EnemyAnimator Animator;
 

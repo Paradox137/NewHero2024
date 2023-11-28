@@ -1,5 +1,6 @@
 using System;
 using HeroScripts.Hero;
+using HeroScripts.Logic;
 using UnityEngine;
 
 namespace HeroScripts.UI
@@ -8,13 +9,23 @@ namespace HeroScripts.UI
 	{
 		public HpBar HpBar;
 
-		private HeroHealth _heroHealth;
+		private IHealth _heroHealth;
 
-		public void Construct(HeroHealth health)
+		public void Construct(IHealth health)
 		{
 			_heroHealth = health;
 
 			_heroHealth.HealthChanged += UpdateHpBar;
+		}
+
+		private void Start()
+		{
+			IHealth health = GetComponent<IHealth>();
+
+			if (health != null)
+			{
+				Construct(health);
+			}
 		}
 		private void OnDestroy()
 		{

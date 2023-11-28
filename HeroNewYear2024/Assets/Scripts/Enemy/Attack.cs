@@ -3,6 +3,7 @@ using System.Linq;
 using HeroScripts.Hero;
 using HeroScripts.Infrastructure;
 using HeroScripts.Infrastructure.Services;
+using HeroScripts.Logic;
 using UnityEngine;
 
 namespace HeroScripts.Enemy
@@ -45,7 +46,7 @@ namespace HeroScripts.Enemy
 		{
 			if (Hit(out Collider hit))
 			{
-				hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
+				hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
 				PhysicsDebug.DrawDebug(StartHitPoint() + transform.forward * TestDistance, RadiusAttackHit, 1f);
 			}
 		}

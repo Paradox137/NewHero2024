@@ -1,6 +1,8 @@
 ﻿using HeroScripts.Data;
+using HeroScripts.Enemy;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
+using HeroScripts.Logic;
 using HeroScripts.Services.Input;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
@@ -32,6 +34,16 @@ namespace HeroScripts.Hero
 			if (_inputService.IsAttackButtonUp() && !Animator.IsAttacking)
 				Animator.PlayAttackNormal();
 		}
+		
+		private void OnAttack()
+		{
+			PhysicsDebug.DrawDebug(StartPoint() + transform.forward, _stats.DamageRadius, 1.0f);
+			for (int i = 0; i < Hit(); ++i)
+			{
+				_hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);
+			}
+		}
+		
 		private int Hit() => Physics.OverlapSphereNonAlloc(StartPoint() + transform.forward, _stats.DamageRadius, _hits, _layerMask);
 		public void LoadProgress(PlayerProgress progress)
 		{
