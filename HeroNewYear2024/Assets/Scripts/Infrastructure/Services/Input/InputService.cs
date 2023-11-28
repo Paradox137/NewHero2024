@@ -8,6 +8,10 @@ namespace HeroScripts.Services.Input
 		protected const string Vertical = "Vertical";
 		
 		public abstract Vector2 Axis { get; }
+		public bool IsAttackButtonUp()
+		{
+			return UnityEngine.Input.GetKeyDown(KeyCode.F);
+		}
 
 		protected abstract  Vector2 GetInputAxis();
 

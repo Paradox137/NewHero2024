@@ -32,7 +32,10 @@ namespace HeroScripts.Infrastructure.States
 		private PlayerProgress NewProgress()
 		{
 			PlayerProgress progress = new PlayerProgress("test");
-
+			
+			progress.HeroStats.Damage = 1;
+			progress.HeroStats.DamageRadius = 0.5f;
+			
 			progress.HeroState.MaxHP = 50;
 			progress.HeroState.ResetHP();
 
