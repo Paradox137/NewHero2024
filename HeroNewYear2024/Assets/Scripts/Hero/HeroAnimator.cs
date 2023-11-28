@@ -18,5 +18,9 @@ namespace HeroScripts.Hero
 		{
 			_animator.SetTrigger(HitHash);
 		}
+		public void PlayDeath()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
