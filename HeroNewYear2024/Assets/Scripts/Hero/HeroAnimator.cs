@@ -11,6 +11,7 @@ namespace HeroScripts.Hero
 		private static readonly int IdleHash = Animator.StringToHash("Idle");
 		private static readonly int HitHash = Animator.StringToHash("Hit");
 		private static readonly int DieHash = Animator.StringToHash("Die");
+		private static readonly int AttackNormalHash = Animator.StringToHash("AttackNormal");
 		private void Update()
 		{
 			_animator.SetFloat(MoveHash, _characterController.velocity.magnitude, 0f, Time.deltaTime);
@@ -22,6 +23,11 @@ namespace HeroScripts.Hero
 		public void PlayDeath()
 		{
 			_animator.SetTrigger(DieHash);
+		}
+		
+		public void PlayAttackNormal()
+		{
+			_animator.SetTrigger(AttackNormalHash);
 		}
 	}
 }
