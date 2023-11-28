@@ -36,7 +36,7 @@ namespace HeroScripts.Hero
 			Move.enabled = false;
 			Animator.PlayDeath();
 
-			Instantiate(DeathFx, transform.position, Quaternion.identity);
+			//Instantiate(DeathFx, transform.position, Quaternion.identity);
 		}
 	}
 }
