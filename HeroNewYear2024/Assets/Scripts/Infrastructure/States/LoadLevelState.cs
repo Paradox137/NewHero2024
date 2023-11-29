@@ -14,6 +14,7 @@ namespace HeroScripts.Infrastructure
 		private readonly LoadingCurtain _loadingCurtain;
 		
 		private const string InitialPointTag = "InitialPoint";
+		private const string SpawnerTag = "EnemySpawner";
 		private readonly IGameFactory _gameFactory;
 		private readonly IPersistentProgressService _progressService;
 
@@ -65,6 +66,16 @@ namespace HeroScripts.Infrastructure
 		{
 			if (Camera.main != null)
 				Camera.main.GetComponentInParent<CameraFollow>().Follow(hero);
+		}
+
+		private void InitSpawners()
+		{
+			foreach (GameObject spawnerGO in GameObject.FindGameObjectsWithTag(SpawnerTag))
+			{
+				EnemySpawner spawner = spawnerGO.GetComponent<EnemySpawner>();
+				
+				_gameFactory.Register(spawner);
+			}
 		}
 	}
 }

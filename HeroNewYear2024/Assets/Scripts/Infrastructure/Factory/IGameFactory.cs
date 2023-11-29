@@ -8,6 +8,7 @@ namespace HeroScripts.Infrastructure
 {
 	public interface IGameFactory : IService
 	{
+		void Register(ISavedProgressReader progressReader);
 		GameObject CreateHero(GameObject at);
 		GameObject CreateHud();
 		GameObject HeroGameObject { get; }
