@@ -11,6 +11,7 @@ namespace HeroScripts.Hero
 		public HeroHealth Health;
 
 		public HeroMove Move;
+		public HeroAttack Attack;
 		public HeroAnimator Animator;
 
 		public GameObject DeathFx;
@@ -34,6 +35,8 @@ namespace HeroScripts.Hero
 		{
 			_isDead = true;
 			Move.enabled = false;
+			Attack.enabled = false;
+			
 			Animator.PlayDeath();
 
 			//Instantiate(DeathFx, transform.position, Quaternion.identity);
