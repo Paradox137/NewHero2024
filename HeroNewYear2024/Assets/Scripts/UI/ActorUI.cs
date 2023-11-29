@@ -9,16 +9,16 @@ namespace HeroScripts.UI
 	{
 		public HpBar HpBar;
 
-		private IHealth _heroHealth;
+		private IHealth _health;
 
 		public void Construct(IHealth health)
 		{
-			_heroHealth = health;
+			_health = health;
 
-			_heroHealth.HealthChanged += UpdateHpBar;
+			_health.HealthChanged += UpdateHpBar;
 		}
 
-		private void Start()
+		private void OnEnable()
 		{
 			IHealth health = GetComponent<IHealth>();
 
@@ -29,12 +29,12 @@ namespace HeroScripts.UI
 		}
 		private void OnDestroy()
 		{
-			_heroHealth.HealthChanged -= UpdateHpBar;
+			_health.HealthChanged -= UpdateHpBar;
 		}
 
 		private void UpdateHpBar()
 		{
-			HpBar.SetValue(_heroHealth.Current, _heroHealth.Max);
+			HpBar.SetValue(_health.Current, _health.Max);
 		}
 
 	}

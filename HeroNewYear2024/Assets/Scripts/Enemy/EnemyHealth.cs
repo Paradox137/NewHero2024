@@ -31,6 +31,8 @@ namespace HeroScripts.Enemy
 		public void TakeDamage(float damage)
 		{
 			Current -= damage;
+			
+			Debug.Log(damage);
       
 			Animator.PlayHit();
       

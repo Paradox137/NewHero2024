@@ -38,6 +38,7 @@ namespace HeroScripts.Hero
 		private void OnAttack()
 		{
 			PhysicsDebug.DrawDebug(StartPoint() + transform.forward, _stats.DamageRadius, 1.0f);
+			
 			for (int i = 0; i < Hit(); ++i)
 			{
 				_hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);
