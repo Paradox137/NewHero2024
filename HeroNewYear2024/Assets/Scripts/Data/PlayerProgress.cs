@@ -8,11 +8,13 @@ namespace HeroScripts.Data
 		public HeroState HeroState;
 		public Stats HeroStats;
 		public WorldData WorldData;
+		public KillData KillData;
 		public PlayerProgress(string initialLevel)
 		{
 			WorldData = new WorldData(initialLevel);
 			HeroState = new HeroState();
 			HeroStats = new Stats();
+			KillData = new KillData();
 		}
 	}
 
