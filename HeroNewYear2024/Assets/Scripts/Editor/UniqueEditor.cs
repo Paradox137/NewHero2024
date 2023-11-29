@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HeroScripts.Logic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -13,12 +14,22 @@ namespace HeroScripts.Editor
 		{
 			var uniqueID = (UniqueID) target;
 
+			if(IsPrefab(uniqueID))
+				return;
+			
 			if (string.IsNullOrEmpty(uniqueID.ID))
 				Generate(uniqueID);
+			else
+			{
+				UniqueID[] uniqueIds = FindObjectsOfType<UniqueID>();
+				
+				if(uniqueIds.Any(other => other != uniqueID && other.ID == uniqueID.ID))
+					Generate(uniqueID);
+			}
 		}
 		private void Generate(UniqueID uniqueID)
 		{
-			uniqueID.ID = Guid.NewGuid().ToString();
+			uniqueID.ID = $"{uniqueID.gameObject.scene.name}_{Guid.NewGuid().ToString()}";
 			
 			if (!Application.isPlaying)
 			{
@@ -27,5 +38,6 @@ namespace HeroScripts.Editor
 				EditorSceneManager.MarkSceneDirty(uniqueID.gameObject.scene);
 			}
 		}
+		private bool IsPrefab(UniqueID uniqueID) => uniqueID.gameObject.scene.rootCount == 0;
 	}
 }
