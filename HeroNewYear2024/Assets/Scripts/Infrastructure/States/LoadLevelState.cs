@@ -53,6 +53,8 @@ namespace HeroScripts.Infrastructure
 		}
 		private void InitGameWorld()
 		{
+			InitSpawners();
+			
 			GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
 
 			var hud = _gameFactory.CreateHud();
