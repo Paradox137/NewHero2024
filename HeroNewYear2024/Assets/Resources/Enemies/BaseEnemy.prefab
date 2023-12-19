@@ -559,6 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: {fileID: 5432936373513994595}
   Animator: {fileID: 7280811274396066212}
+  AgentMoveToHeroComponent: {fileID: 7341927274432131294}
 --- !u!114 &2661502963192666344
 MonoBehaviour:
   m_ObjectHideFlags: 0

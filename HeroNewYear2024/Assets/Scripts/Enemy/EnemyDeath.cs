@@ -10,6 +10,8 @@ namespace HeroScripts.Enemy
 		public EnemyHealth Health;
 		public EnemyAnimator Animator;
 
+		[Header("Components to disable")]
+		public AgentMoveToHero AgentMoveToHeroComponent;
 		//public GameObject DeathFx;
 
 		public event Action Happened;
@@ -32,8 +34,10 @@ namespace HeroScripts.Enemy
 
 		private void Die()
 		{
+			AgentMoveToHeroComponent.enabled = false;
+			
 			Health.HealthChanged -= OnHealthChanged;
-      
+			
 			Animator.PlayDeath();
 			SpawnDeathFx();
 
