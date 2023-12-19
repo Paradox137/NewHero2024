@@ -48,15 +48,15 @@ namespace HeroScripts.Infrastructure.Factory
 			health.Max = enemyData.HP;
 			
 			enemy.GetComponent<ActorUI>().Construct(health);
-			enemy.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
 			enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
 
-			var attack = enemy.GetComponent<Attack>();
+			Attack attack = enemy.GetComponent<Attack>();
 			attack.Construct(HeroGameObject.transform);
 			attack.Damage = enemyData.Damage;
 			attack.EffectiveDistance = enemyData.EffectiveDistance;
 			attack.RadiusAttackHit = enemyData.RadiusAttackHit;
 
+			enemy.GetComponent<AgentMoveToHero>()?.Construct(HeroGameObject.transform);
 			enemy.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);
 			
 			return enemy;

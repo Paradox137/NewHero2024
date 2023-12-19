@@ -59,7 +59,7 @@ namespace HeroScripts.Infrastructure
 		{
 			var staticData = new StaticDataService();
 			staticData.LoadEnemies();
-			_allServices.RegisterSingle(staticData);
+			_allServices.RegisterSingle<IStaticDataService>(staticData);
 		}
 
 		private static IInputService InputService()

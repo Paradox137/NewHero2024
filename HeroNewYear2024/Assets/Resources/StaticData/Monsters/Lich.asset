@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Lich
   m_EditorClassIdentifier: 
   EnemyTypeID: 0
-  HP: 0
-  Damage: 1
+  HP: 50
+  Damage: 10
   EffectiveDistance: 0
   RadiusAttackHit: 0
+  MoveSpeed: 3
   prefab: {fileID: 5389380524296216716, guid: 4ac79af4cfb9812488e74e3dd7cf5898, type: 3}
