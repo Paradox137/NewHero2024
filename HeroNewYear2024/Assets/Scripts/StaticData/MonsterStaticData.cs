@@ -8,16 +8,16 @@ namespace HeroScripts.StaticData
 		public EnemyTypeID EnemyTypeID;
 		
 		[Range(1, 100)]
-		public int HP;
+		public int HP = 50;
 
 		[Range(1f, 30)]
-		public float Damage;
+		public float Damage = 10f;
 
 		[Range(0.5f, 1)]
-		public float EffectiveDistance;
+		public float EffectiveDistance = 0.5f;
 		
 		[Range(0.5f, 1)]
-		public float RadiusAttackHit;
+		public float RadiusAttackHit = 0.5f;
 
 		public GameObject prefab;
 	}
