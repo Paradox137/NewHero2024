@@ -5,6 +5,7 @@ using HeroScripts.Infrastructure;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HeroScripts.Enemy
 {
@@ -14,7 +15,7 @@ namespace HeroScripts.Enemy
 		[SerializeField] private EnemyAnimator Animator;
 		[SerializeField] private float AttackCooldown = 3f;
 		[SerializeField] private float RadiusAttackHit = 0.5f;
-		[SerializeField] private float TestDistance = 0.5f;
+		[SerializeField] private float EffectiveDistance = 0.5f;
 		[SerializeField] private float Damage = 10f;
 
 		private IGameFactory _factory;
@@ -47,7 +48,7 @@ namespace HeroScripts.Enemy
 			if (Hit(out Collider hit))
 			{
 				hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
-				PhysicsDebug.DrawDebug(StartHitPoint() + transform.forward * TestDistance, RadiusAttackHit, 1f);
+				PhysicsDebug.DrawDebug(StartHitPoint() + transform.forward * EffectiveDistance, RadiusAttackHit, 1f);
 			}
 		}
 
@@ -61,7 +62,7 @@ namespace HeroScripts.Enemy
 		{
 			Vector3 startHitPoint = StartHitPoint();
 			
-			int hitCount = Physics.OverlapSphereNonAlloc(startHitPoint + transform.forward * TestDistance, RadiusAttackHit, _hits, _layerMask);
+			int hitCount = Physics.OverlapSphereNonAlloc(startHitPoint + transform.forward * EffectiveDistance, RadiusAttackHit, _hits, _layerMask);
 
 			hit = _hits.FirstOrDefault();
 
