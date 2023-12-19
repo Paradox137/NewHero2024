@@ -15,5 +15,6 @@ namespace HeroScripts.Infrastructure
 		List<ISavedProgress> ProgressWriters { get; }
 		void CleanUp();
 		GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
+		GameObject CreateLoot();
 	}
 }

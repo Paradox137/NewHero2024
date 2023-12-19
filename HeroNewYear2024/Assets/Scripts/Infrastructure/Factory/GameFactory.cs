@@ -50,6 +50,10 @@ namespace HeroScripts.Infrastructure.Factory
 			enemy.GetComponent<ActorUI>().Construct(health);
 			enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
 
+
+			LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
+			lootSpawner.Construct(this);
+
 			Attack attack = enemy.GetComponent<Attack>();
 			attack.Construct(HeroGameObject.transform);
 			attack.Damage = enemyData.Damage;
@@ -60,6 +64,10 @@ namespace HeroScripts.Infrastructure.Factory
 			enemy.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);
 			
 			return enemy;
+		}
+		public GameObject CreateLoot()
+		{
+			return InstantiateRegistered(AssetsPath.Loot);
 		}
 
 		public void CleanUp()
