@@ -8,6 +8,7 @@ namespace HeroScripts.Enemy
 	public class Attack : MonoBehaviour
 	{
 		[SerializeField] private EnemyAnimator Animator;
+		[SerializeField] private Transform WeaponHitDot;
 		public float AttackCooldown = 3f;
 		public float RadiusAttackHit = 0.5f;
 		public float EffectiveDistance = 0.5f;
@@ -77,7 +78,8 @@ namespace HeroScripts.Enemy
 
 		private void StartAttack()
 		{
-			transform.LookAt(_heroTransform);
+			//todo: better need custom rotate to hero component 
+			//transform.LookAt(_heroTransform);
 			
 			Animator.PlayAttack();
 

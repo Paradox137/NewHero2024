@@ -8,7 +8,7 @@ namespace HeroScripts.Enemy
 {
 	public class AgentMoveToHero : Follow
 	{
-		private const float MinimalDistance = 1f;
+		private const float MinimalDistance = 2f;
 		public NavMeshAgent Agent;
 		private Transform _heroTransform;
 
@@ -20,7 +20,7 @@ namespace HeroScripts.Enemy
 		}
 		private void Update()
 		{
-			if(_heroTransform)
+			if (_heroTransform && HeroNotReached())
 				Agent.destination = _heroTransform.position;
 		}
 		private bool HeroNotReached() 
