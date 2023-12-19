@@ -1,9 +1,11 @@
-﻿using HeroScripts.Infrastructure.AssetManagement;
+﻿using System.ComponentModel;
+using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Infrastructure.Services.SaveLoad;
 using HeroScripts.Infrastructure.States;
 using HeroScripts.Services.Input;
+using HeroScripts.StaticData;
 
 namespace HeroScripts.Infrastructure
 {
@@ -47,8 +49,16 @@ namespace HeroScripts.Infrastructure
 			
 			_allServices.RegisterSingle<ISaveLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
 				_allServices.Single<IGameFactory>()));
+
+			RegisterStaticData();
 		}
-		
+		private void RegisterStaticData()
+		{
+			var staticData = new StaticDataService();
+			staticData.LoadEnemies();
+			_allServices.RegisterSingle(staticData);
+		}
+
 		private static IInputService InputService()
 		{
 			/*if (Application.isMobilePlatform)
