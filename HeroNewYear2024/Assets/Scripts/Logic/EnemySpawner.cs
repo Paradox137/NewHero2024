@@ -1,5 +1,8 @@
 ﻿using System;
 using HeroScripts.Data;
+using HeroScripts.Enemy;
+using HeroScripts.Infrastructure;
+using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.StaticData;
 using UnityEngine;
@@ -13,10 +16,14 @@ namespace HeroScripts.Logic
 		private string _id;
 
 		public bool Slain;
-		
+		private IGameFactory _factory;
+		private EnemyDeath _enemyDeath;
+
 		private void Awake()
 		{
 			_id = GetComponent<UniqueID>().ID;
+
+			_factory = AllServices.Container.Single<IGameFactory>();
 		}
 		public void LoadProgress(PlayerProgress progress)
 		{
@@ -31,7 +38,16 @@ namespace HeroScripts.Logic
 		}
 		private void Spawn()
 		{
+			GameObject enemy = _factory.CreateEnemy(EnemyTypeID, transform);
+			_enemyDeath = enemy.GetComponent<EnemyDeath>();
+			_enemyDeath.Happened += Slay;
+		}
+		private void Slay()
+		{
+			if(_enemyDeath != null)
+				_enemyDeath.Happened -= Slay;
 			
+			Slain = true;
 		}
 		public void UpdateProgress(PlayerProgress progress)
 		{

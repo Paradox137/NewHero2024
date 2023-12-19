@@ -1,6 +1,4 @@
-﻿using HeroScripts.Infrastructure;
-using HeroScripts.Infrastructure.Services;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace HeroScripts.Enemy
 {
@@ -9,17 +7,11 @@ namespace HeroScripts.Enemy
 		public float Speed;
 
 		private Transform _heroTransform;
-		private IGameFactory _gameFactory;
 		private Vector3 _positionToLook;
 
-		private void Start()
+		public void Construct(Transform heroTransform)
 		{
-			_gameFactory = AllServices.Container.Single<IGameFactory>();
-
-			if (IsHeroExist())
-				InitializeHeroTransform();
-			else
-				_gameFactory.HeroCreated += HeroCreated;
+			_heroTransform = heroTransform;
 		}
 
 		private void Update()
@@ -27,15 +19,6 @@ namespace HeroScripts.Enemy
 			if (IsInitialized())
 				RotateTowardsHero();
 		}
-
-		private void OnDestroy()
-		{
-			if(_gameFactory != null)
-				_gameFactory.HeroCreated -= HeroCreated;
-		}
-
-		private bool IsHeroExist() => 
-			_gameFactory.HeroGameObject != null;
 
 		private void RotateTowardsHero()
 		{
@@ -49,7 +32,7 @@ namespace HeroScripts.Enemy
 			Vector3 positionDelta = _heroTransform.position - transform.position;
 			_positionToLook = new Vector3(positionDelta.x, transform.position.y, positionDelta.z);
 		}
-    
+		
 		private Quaternion SmoothedRotation(Quaternion rotation, Vector3 positionToLook) =>
 			Quaternion.Lerp(rotation, TargetRotation(positionToLook), SpeedFactor());
 
@@ -59,13 +42,7 @@ namespace HeroScripts.Enemy
 		private float SpeedFactor() =>
 			Speed * Time.deltaTime;
 
-		private bool IsInitialized() => 
+		private bool IsInitialized() =>
 			_heroTransform != null;
-    
-		private void HeroCreated() =>
-			InitializeHeroTransform();
-
-		private void InitializeHeroTransform() =>
-			_heroTransform = _gameFactory.HeroGameObject.transform;
 	}
 }

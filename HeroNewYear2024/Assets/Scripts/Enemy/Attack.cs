@@ -1,11 +1,6 @@
-﻿using System;
-using System.Linq;
-using HeroScripts.Hero;
-using HeroScripts.Infrastructure;
-using HeroScripts.Infrastructure.Services;
+﻿using System.Linq;
 using HeroScripts.Logic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HeroScripts.Enemy
 {
@@ -13,12 +8,11 @@ namespace HeroScripts.Enemy
 	public class Attack : MonoBehaviour
 	{
 		[SerializeField] private EnemyAnimator Animator;
-		[SerializeField] private float AttackCooldown = 3f;
-		[SerializeField] private float RadiusAttackHit = 0.5f;
-		[SerializeField] private float EffectiveDistance = 0.5f;
-		[SerializeField] private float Damage = 10f;
-
-		private IGameFactory _factory;
+		public float AttackCooldown = 3f;
+		public float RadiusAttackHit = 0.5f;
+		public float EffectiveDistance = 0.5f;
+		public float Damage = 10f;
+		
 		private Transform _heroTransform;
 		private float _attackCooldown;
 		private bool _isAttacking;
@@ -26,13 +20,13 @@ namespace HeroScripts.Enemy
 		private Collider[] _hits = new Collider[1];
 		private bool _attackIsActive;
 
+		public void Construct(Transform heroTransform)
+		{
+			_heroTransform = heroTransform;
+		}
 		private void Awake()
 		{
-			_factory = AllServices.Container.Single<IGameFactory>();
-
 			_layerMask = 1 << LayerMask.NameToLayer("Player");
-			
-			_factory.HeroCreated += OnHeroCreated;
 		}
 
 		private void Update()
@@ -57,7 +51,7 @@ namespace HeroScripts.Enemy
 			_attackCooldown = AttackCooldown;
 			_isAttacking = false;
 		}
-		
+
 		private bool Hit(out Collider hit)
 		{
 			Vector3 startHitPoint = StartHitPoint();
@@ -72,10 +66,9 @@ namespace HeroScripts.Enemy
 		private Vector3 StartHitPoint() => new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 		private bool CanAttack() => _attackIsActive && CooldownEnded() && !_isAttacking;
 		private bool CooldownEnded() => _attackCooldown <= 0;
-		private void OnHeroCreated() => _heroTransform = _factory.HeroGameObject.transform;
 		public void DisableAttack() => _attackIsActive = false;
 		public void EnableAttack() => _attackIsActive = true;
-		
+
 		private void UpdateCooldown()
 		{
 			if (!CooldownEnded())

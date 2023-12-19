@@ -14,35 +14,15 @@ namespace HeroScripts.Enemy
 
 		private IGameFactory _gameFactory;
 
-		private void Start()
+		public void Construct(Transform heroTransform)
 		{
-			_gameFactory = AllServices.Container.Single<IGameFactory>();
-
-			if (_gameFactory.HeroGameObject != null)
-			{
-				InitializeHeroTransform();
-			}
-			else
-			{
-				_gameFactory.HeroCreated += HeroCreated;
-			}
+			_heroTransform = heroTransform;
 		}
-		private void HeroCreated()
-		{
-			InitializeHeroTransform();
-		}
-		private void InitializeHeroTransform()
-		{
-			_heroTransform = _gameFactory.HeroGameObject.transform;
-		}
-
 		private void Update()
 		{
-			if(Initialized() && HeroNotReached())
+			if(_heroTransform)
 				Agent.destination = _heroTransform.position;
 		}
-		private bool Initialized() => _heroTransform != null;
-
 		private bool HeroNotReached() 
 		{
 			return Vector3.Distance(Agent.transform.position, _heroTransform.position) >= MinimalDistance;

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using HeroScripts.Infrastructure.AssetManagement;
+using HeroScripts.Infrastructure.Factory;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Infrastructure.Services.SaveLoad;
@@ -39,18 +40,20 @@ namespace HeroScripts.Infrastructure
 
 		private void RegisterService()
 		{
+			RegisterStaticData();
+			
 			_allServices.RegisterSingle<IInputService>(InputService());
 			
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
 
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
 
-			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>()));
+			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>(),
+				_allServices.Single<IStaticDataService>()));
 			
 			_allServices.RegisterSingle<ISaveLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
 				_allServices.Single<IGameFactory>()));
 
-			RegisterStaticData();
 		}
 		private void RegisterStaticData()
 		{
