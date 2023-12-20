@@ -99,9 +99,5 @@ namespace HeroScripts.Enemy
 			if (!lootPiecesOnScene.Dictionary.ContainsKey(_id))
 				progress.WorldData.LootData.LootEntitiesOnScene.Dictionary.Add(_id, new LootEntityData(transform.position.AsVector3Data(), _loot));
 		}
-		private void OnApplicationQuit()
-		{
-			Debug.Log(_worldData.LootData.LootEntitiesOnScene.Dictionary.Count);
-		}
 	}
 }

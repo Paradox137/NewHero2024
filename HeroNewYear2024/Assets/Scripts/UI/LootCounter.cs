@@ -19,7 +19,6 @@ namespace HeroScripts.UI
 		private void Start()
 		{
 			UpdateCounter();
-			Debug.Log(_worldData.LootData.LootEntitiesOnScene.Dictionary.Count);
 		}
 
 		private void UpdateCounter()

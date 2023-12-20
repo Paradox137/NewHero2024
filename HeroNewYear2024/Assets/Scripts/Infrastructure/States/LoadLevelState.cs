@@ -87,7 +87,6 @@ namespace HeroScripts.Infrastructure
 		
 		private void InitLootEntities()
 		{
-			Debug.Log(_progressService.Progress.WorldData.LootData.LootEntitiesOnScene.Dictionary.Count);
 			foreach (KeyValuePair<string, LootEntityData> item in _progressService.Progress.WorldData.LootData.LootEntitiesOnScene.Dictionary)
 			{
 				LootEntity lootPiece = _gameFactory.CreateLoot();
