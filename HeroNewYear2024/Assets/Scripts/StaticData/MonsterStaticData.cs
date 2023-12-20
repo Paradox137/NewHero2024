@@ -13,6 +13,9 @@ namespace HeroScripts.StaticData
 		[Range(1f, 30)]
 		public float Damage = 10f;
 
+		public int MinLoot;
+		public int MaxLoot;
+		
 		[Range(0.5f, 1)]
 		public float EffectiveDistance = 0.5f;
 		

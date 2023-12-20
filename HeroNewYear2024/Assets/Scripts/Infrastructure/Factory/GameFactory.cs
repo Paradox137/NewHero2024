@@ -17,14 +17,16 @@ namespace HeroScripts.Infrastructure.Factory
 		
 		private readonly IAssetsProvider _assetProvider;
 		private readonly IStaticDataService _staticData;
+		private readonly IRandomService _randomService;
 
 		public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
 		public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 		
-		public GameFactory(IAssetsProvider assetProvider, IStaticDataService staticData)
+		public GameFactory(IAssetsProvider assetProvider, IStaticDataService staticData, IRandomService randomService)
 		{
 			_assetProvider = assetProvider;
 			_staticData = staticData;
+			_randomService = randomService;
 		}
 		public GameObject CreateHero(GameObject at)
 		{
@@ -52,8 +54,9 @@ namespace HeroScripts.Infrastructure.Factory
 
 
 			LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
-			lootSpawner.Construct(this);
-
+			lootSpawner.SetLoot(enemyData.MinLoot, enemyData.MaxLoot);
+			lootSpawner.Construct(this, _randomService);
+			
 			Attack attack = enemy.GetComponent<Attack>();
 			attack.Construct(HeroGameObject.transform);
 			attack.Damage = enemyData.Damage;

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using HeroScripts.Enemy;
 using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Factory;
 using HeroScripts.Infrastructure.Services;
@@ -40,26 +41,30 @@ namespace HeroScripts.Infrastructure
 
 		private void RegisterService()
 		{
-			RegisterStaticData();
 			
 			_allServices.RegisterSingle<IInputService>(InputService());
 			
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
 
+			_allServices.RegisterSingle<IStaticDataService>(RegisterStaticData());
+			
+			//RegisterStaticData();
+			_allServices.RegisterSingle<IRandomService>(new RandomService());
+
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
 
 			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>(),
-				_allServices.Single<IStaticDataService>()));
+				_allServices.Single<IStaticDataService>(), _allServices.Single<IRandomService>()));
 			
 			_allServices.RegisterSingle<ISaveLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
 				_allServices.Single<IGameFactory>()));
 
 		}
-		private void RegisterStaticData()
+		private IStaticDataService RegisterStaticData()
 		{
 			var staticData = new StaticDataService();
 			staticData.LoadEnemies();
-			_allServices.RegisterSingle<IStaticDataService>(staticData);
+			return staticData;
 		}
 
 		private static IInputService InputService()
