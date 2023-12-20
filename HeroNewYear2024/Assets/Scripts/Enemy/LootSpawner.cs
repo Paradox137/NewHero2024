@@ -1,6 +1,7 @@
 ﻿using System;
 using HeroScripts.Data;
 using HeroScripts.Infrastructure;
+using TMPro;
 using UnityEngine;
 
 namespace HeroScripts.Enemy

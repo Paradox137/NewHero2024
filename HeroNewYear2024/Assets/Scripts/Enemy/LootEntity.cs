@@ -1,11 +1,18 @@
 ﻿using System;
+using System.Collections;
 using HeroScripts.Data;
+using TMPro;
 using UnityEngine;
 
 namespace HeroScripts.Enemy
 {
 	public class LootEntity : MonoBehaviour
 	{
+		public GameObject Skull;
+		public GameObject PickupFxPrefab;
+		public TextMeshPro LootText;
+		public GameObject PickupPopup;
+		
 		private Loot _loot;
 		private bool _picked = false;
 		private WorldData _worldData;
@@ -32,7 +39,28 @@ namespace HeroScripts.Enemy
 			
 			_picked = true;
 
-			_worldData.LootData.Collect(_loot);
+			UpdateWorldData();
+			HideSkull();
+			PlayPickupFx();
+			ShowText();
+
+			StartCoroutine(StartDestroyTimer());
+		}
+		private void UpdateWorldData() => _worldData.LootData.Collect(_loot);
+		private void HideSkull() => Skull.SetActive(false);
+		private void PlayPickupFx() => Instantiate(PickupFxPrefab, transform.position, Quaternion.identity);
+
+		private void ShowText()
+		{
+			LootText.text = $"{_loot.Value}";
+			PickupPopup.SetActive(true);
+		}
+		
+		private IEnumerator StartDestroyTimer()
+		{
+			yield return new WaitForSeconds(1.5f);
+			
+			Destroy(gameObject);
 		}
 	}
 }
