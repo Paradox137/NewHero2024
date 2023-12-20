@@ -20,12 +20,15 @@ namespace HeroScripts.Hero
 		private IInputService _inputService;
 
 		private static int _layerMask;
+		
+		//! 3х врагов одновременно можем задеть
 		private Collider[] _hits = new Collider[3];
 		
 		private void Awake()
 		{
 			_inputService = AllServices.Container.Single<IInputService>();
 
+			//! только пересечение с hittable нужно
 			_layerMask = 1 << LayerMask.NameToLayer("Hittable");
 		}
 

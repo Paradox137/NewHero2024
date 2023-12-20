@@ -6,9 +6,13 @@ namespace HeroScripts.Data
 	public class LootData
 	{
 		public int Collected;
-		//todo event
-		public Action Changed;
+		public LootEntityDataDictionary LootEntitiesOnScene;
 
+		public event Action Changed;
+		public LootData()
+		{
+			LootEntitiesOnScene = new LootEntityDataDictionary();
+		}
 		public void Collect(Loot loot)
 		{
 			Collected += loot.Value;

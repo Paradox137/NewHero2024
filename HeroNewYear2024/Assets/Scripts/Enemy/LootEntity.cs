@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using HeroScripts.Data;
+using HeroScripts.Infrastructure.Services.PersistentProgress;
+using HeroScripts.Logic;
 using TMPro;
 using UnityEngine;
 
 namespace HeroScripts.Enemy
 {
-	public class LootEntity : MonoBehaviour
+	public class LootEntity : MonoBehaviour, ISavedProgress
 	{
 		public GameObject Skull;
 		public GameObject PickupFxPrefab;
@@ -17,11 +19,17 @@ namespace HeroScripts.Enemy
 		private bool _picked = false;
 		private WorldData _worldData;
 
+		private string _id;
 		public void Construct(WorldData worldData)
 		{
 			_worldData = worldData;
 		}
-		
+
+		private void Start()
+		{
+			_id = GetComponent<UniqueID>().ID;
+		}
+
 		public void Initialize(Loot loot)
 		{
 			_loot = loot;
@@ -46,7 +54,11 @@ namespace HeroScripts.Enemy
 
 			StartCoroutine(StartDestroyTimer());
 		}
-		private void UpdateWorldData() => _worldData.LootData.Collect(_loot);
+		private void UpdateWorldData()
+		{
+			_worldData.LootData.Collect(_loot);
+			RemoveLootPieceFromSavedPieces();
+		}
 		private void HideSkull() => Skull.SetActive(false);
 		private void PlayPickupFx() => Instantiate(PickupFxPrefab, transform.position, Quaternion.identity);
 
@@ -61,6 +73,35 @@ namespace HeroScripts.Enemy
 			yield return new WaitForSeconds(1.5f);
 			
 			Destroy(gameObject);
+		}
+		
+		private void RemoveLootPieceFromSavedPieces()
+		{
+			LootEntityDataDictionary savedLootPieces = _worldData.LootData.LootEntitiesOnScene;
+
+			if (savedLootPieces.Dictionary.ContainsKey(_id))
+			{
+				savedLootPieces.Dictionary.Remove(_id);
+			}
+		}
+		
+		public void LoadProgress(PlayerProgress progress)
+		{
+			
+		}
+		public void UpdateProgress(PlayerProgress progress)
+		{
+			if (_picked)
+				return;
+
+			LootEntityDataDictionary lootPiecesOnScene = progress.WorldData.LootData.LootEntitiesOnScene;
+
+			if (!lootPiecesOnScene.Dictionary.ContainsKey(_id))
+				progress.WorldData.LootData.LootEntitiesOnScene.Dictionary.Add(_id, new LootEntityData(transform.position.AsVector3Data(), _loot));
+		}
+		private void OnApplicationQuit()
+		{
+			Debug.Log(_worldData.LootData.LootEntitiesOnScene.Dictionary.Count);
 		}
 	}
 }

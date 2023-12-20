@@ -29,7 +29,7 @@ namespace HeroScripts.Editor
 		}
 		private void Generate(UniqueID uniqueID)
 		{
-			uniqueID.ID = $"{uniqueID.gameObject.scene.name}_{Guid.NewGuid().ToString()}";
+			uniqueID.GenerateId();
 			
 			if (!Application.isPlaying)
 			{

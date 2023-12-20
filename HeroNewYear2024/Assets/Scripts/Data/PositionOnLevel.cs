@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace HeroScripts.Data
 {
@@ -8,6 +9,7 @@ namespace HeroScripts.Data
 		public string Level;
 		public Vector3Data Position;
 
+		[JsonConstructor]
 		public PositionOnLevel(string level, Vector3Data position)
 		{
 			Level = level;

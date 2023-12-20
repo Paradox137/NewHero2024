@@ -40,7 +40,11 @@ namespace HeroScripts.Infrastructure.Factory
 		
 		public GameObject CreateHud()
 		{
-			return InstantiateRegistered(AssetsPath.HudPath);
+			GameObject hud = InstantiateRegistered(AssetsPath.HudPath);
+			
+			hud.GetComponentInChildren<LootCounter>().Construct(_persistentProgressService.Progress.WorldData);
+
+			return hud;
 		}
 		public GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent)
 		{

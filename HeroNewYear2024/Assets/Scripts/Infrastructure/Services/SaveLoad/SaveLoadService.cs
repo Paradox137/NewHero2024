@@ -27,6 +27,7 @@ namespace HeroScripts.Infrastructure.Services.SaveLoad
 		}
 		public PlayerProgress LoadProgress()
 		{
+			Debug.Log(PlayerPrefs.GetString(ProgressKey)?.ToDeserializedFromJSON<PlayerProgress>());
 			return PlayerPrefs.GetString(ProgressKey)?.ToDeserializedFromJSON<PlayerProgress>();
 		}
 	}

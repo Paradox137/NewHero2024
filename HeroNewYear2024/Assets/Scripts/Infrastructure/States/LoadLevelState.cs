@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Xml;
 using HeroScripts.CameraLogic;
+using HeroScripts.Data;
+using HeroScripts.Enemy;
 using HeroScripts.Hero;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Logic;
@@ -54,6 +58,7 @@ namespace HeroScripts.Infrastructure
 		private void InitGameWorld()
 		{
 			InitSpawners();
+			InitLootEntities();
 			
 			GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
 
@@ -77,6 +82,18 @@ namespace HeroScripts.Infrastructure
 				EnemySpawner spawner = spawnerGO.GetComponent<EnemySpawner>();
 				
 				_gameFactory.Register(spawner);
+			}
+		}
+		
+		private void InitLootEntities()
+		{
+			Debug.Log(_progressService.Progress.WorldData.LootData.LootEntitiesOnScene.Dictionary.Count);
+			foreach (KeyValuePair<string, LootEntityData> item in _progressService.Progress.WorldData.LootData.LootEntitiesOnScene.Dictionary)
+			{
+				LootEntity lootPiece = _gameFactory.CreateLoot();
+				lootPiece.GetComponent<UniqueID>().ID = item.Key;
+				lootPiece.Initialize(item.Value.Loot);
+				lootPiece.transform.position = item.Value.Position.AsUnityVector3();
 			}
 		}
 	}

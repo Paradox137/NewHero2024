@@ -1,6 +1,7 @@
 ﻿using System;
 using HeroScripts.Data;
 using HeroScripts.Infrastructure;
+using HeroScripts.Logic;
 using TMPro;
 using UnityEngine;
 
@@ -28,9 +29,12 @@ namespace HeroScripts.Enemy
 
 		private void SpawnLoot()
 		{
+			EnemyDeath.Happened -= SpawnLoot;
+			
 			LootEntity loot = _factory.CreateLoot();
 			loot.transform.position = transform.position;
-
+			loot.GetComponent<UniqueID>().GenerateId();
+			
 			var lootItem = new Loot()
 			{
 				Value = _random.Next(_lootMin, _lootMax)

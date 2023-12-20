@@ -1,4 +1,5 @@
 ﻿using HeroScripts.Data;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace HeroScripts
@@ -21,7 +22,7 @@ namespace HeroScripts
 			return vector3;
 		}
 
-		public static T ToDeserializedFromJSON<T>(this string json) => JsonUtility.FromJson<T>(json);
-		public static string ToJSON(this object obj) => JsonUtility.ToJson(obj);
+		public static T ToDeserializedFromJSON<T>(this string json) => JsonConvert.DeserializeObject<T>(json);
+		public static string ToJSON(this object obj) => JsonConvert.SerializeObject(obj);
 	}
 }
