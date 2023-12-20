@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HeroScripts.Enemy;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.StaticData;
@@ -15,6 +16,6 @@ namespace HeroScripts.Infrastructure
 		List<ISavedProgress> ProgressWriters { get; }
 		void CleanUp();
 		GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
-		GameObject CreateLoot();
+		LootEntity CreateLoot();
 	}
 }

@@ -30,10 +30,7 @@ namespace HeroScripts.Infrastructure
 		{
 			_sceneLoader.Load(Initial, EnterLoadLevel);
 		}
-		public void Exit()
-		{
-			
-		}
+		public void Exit() { }
 		private void EnterLoadLevel()
 		{
 			_stateMachine.Enter<LoadProgressState>();
@@ -41,22 +38,27 @@ namespace HeroScripts.Infrastructure
 
 		private void RegisterService()
 		{
-			
+
 			_allServices.RegisterSingle<IInputService>(InputService());
-			
+
 			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
 
 			_allServices.RegisterSingle<IStaticDataService>(RegisterStaticData());
-			
+
 			//RegisterStaticData();
 			_allServices.RegisterSingle<IRandomService>(new RandomService());
 
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
 
-			_allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssetsProvider>(),
-				_allServices.Single<IStaticDataService>(), _allServices.Single<IRandomService>()));
-			
-			_allServices.RegisterSingle<ISaveLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(), 
+			_allServices.RegisterSingle<IGameFactory>(
+				new GameFactory(
+					_allServices.Single<IAssetsProvider>(),
+					_allServices.Single<IStaticDataService>(),
+					_allServices.Single<IRandomService>(),
+					_allServices.Single<IPersistentProgressService>())
+			);
+
+			_allServices.RegisterSingle<ISaveLoadService>(new SaveLoadService(_allServices.Single<IPersistentProgressService>(),
 				_allServices.Single<IGameFactory>()));
 
 		}

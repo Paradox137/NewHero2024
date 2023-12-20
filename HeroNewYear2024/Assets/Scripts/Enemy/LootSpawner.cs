@@ -27,13 +27,15 @@ namespace HeroScripts.Enemy
 
 		private void SpawnLoot()
 		{
-			GameObject loot = _factory.CreateLoot();
+			LootEntity loot = _factory.CreateLoot();
 			loot.transform.position = transform.position;
 
 			var lootItem = new Loot()
 			{
 				Value = _random.Next(_lootMin, _lootMax)
 			};
+			
+			loot.Initialize(lootItem);
 		}
 
 		public void SetLoot(int min, int max)

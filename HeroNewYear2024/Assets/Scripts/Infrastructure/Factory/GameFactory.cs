@@ -18,15 +18,18 @@ namespace HeroScripts.Infrastructure.Factory
 		private readonly IAssetsProvider _assetProvider;
 		private readonly IStaticDataService _staticData;
 		private readonly IRandomService _randomService;
+		private readonly IPersistentProgressService _persistentProgressService;
 
 		public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
 		public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 		
-		public GameFactory(IAssetsProvider assetProvider, IStaticDataService staticData, IRandomService randomService)
+		public GameFactory(IAssetsProvider assetProvider, IStaticDataService staticData, IRandomService randomService, 
+			IPersistentProgressService persistentProgressService)
 		{
 			_assetProvider = assetProvider;
 			_staticData = staticData;
 			_randomService = randomService;
+			_persistentProgressService = persistentProgressService;
 		}
 		public GameObject CreateHero(GameObject at)
 		{
@@ -68,9 +71,12 @@ namespace HeroScripts.Infrastructure.Factory
 			
 			return enemy;
 		}
-		public GameObject CreateLoot()
+		public LootEntity CreateLoot()
 		{
-			return InstantiateRegistered(AssetsPath.Loot);
+			var lootEntity = InstantiateRegistered(AssetsPath.Loot).GetComponent<LootEntity>();
+			lootEntity.Construct(_persistentProgressService.Progress.WorldData);
+			
+			return lootEntity;
 		}
 
 		public void CleanUp()
