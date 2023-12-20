@@ -84,8 +84,9 @@ namespace HeroScripts.Infrastructure.Factory
 		}
 		public void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID)
 		{
-			var spawner = InstantiateRegistered(AssetsPath.Spawner, at).GetComponent<EnemySpawner>();
+			var spawner = InstantiateRegistered(AssetsPath.Spawner, at).GetComponent<SpawnPoint>();
 
+			spawner.Construct(this);
 			spawner.ID = spawnerID;
 			spawner.EnemyTypeID = EnemyTypeID;
 		}

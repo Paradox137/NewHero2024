@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 
 namespace HeroScripts.Logic
 {
-	public class EnemySpawner : MonoBehaviour, ISavedProgress
+	public class SpawnPoint : MonoBehaviour, ISavedProgress
 	{
 		public EnemyTypeID EnemyTypeID;
 		public string ID { get; set; }
@@ -19,22 +19,15 @@ namespace HeroScripts.Logic
 		private IGameFactory _factory;
 		private EnemyDeath _enemyDeath;
 
-		private void Awake()
+		public void Construct(IGameFactory factory)
 		{
-			ID = GetComponent<UniqueID>().ID;
-
-			_factory = AllServices.Container.Single<IGameFactory>();
+			_factory = factory;
 		}
+		
 		public void LoadProgress(PlayerProgress progress)
 		{
-			if (progress.KillData.ClearedSpawners.Contains(ID))
-			{
-				Slain = true;
-			}
-			else
-			{
+			if (!progress.KillData.ClearedSpawners.Contains(ID))
 				Spawn();
-			}
 		}
 		private void Spawn()
 		{
