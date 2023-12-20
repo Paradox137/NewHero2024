@@ -5,6 +5,7 @@ using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Infrastructure.Services.SaveLoad;
 using HeroScripts.Infrastructure.States;
 using HeroScripts.Logic;
+using HeroScripts.StaticData;
 
 namespace HeroScripts.Infrastructure
 {
@@ -17,14 +18,24 @@ namespace HeroScripts.Infrastructure
 		{
 			_states = new Dictionary<Type, IExitableState>()
 			{
-				[typeof(BootstrapState)] = new BootstrapState(this, __sceneLoader, __allServices),
-				
-				[typeof(LoadLevelState)] = new LoadLevelState(this, __sceneLoader, 
-					__loadingCurtain, __allServices.Single<IGameFactory>(), __allServices.Single<IPersistentProgressService>()),
-				
-				[typeof(LoadProgressState)] = new LoadProgressState(this, __allServices.Single<IPersistentProgressService>(), 
+				[typeof(BootstrapState)] = new BootstrapState(
+					this,
+					__sceneLoader,
+					__allServices),
+
+				[typeof(LoadLevelState)] = new LoadLevelState(
+					this,
+					__sceneLoader,
+					__loadingCurtain,
+					__allServices.Single<IGameFactory>(),
+					__allServices.Single<IPersistentProgressService>(),
+					__allServices.Single<IStaticDataService>()),
+
+				[typeof(LoadProgressState)] = new LoadProgressState(
+					this,
+					__allServices.Single<IPersistentProgressService>(),
 					__allServices.Single<ISaveLoadService>()),
-				
+
 				[typeof(GameLoopState)] = new GameLoopState(this),
 			};
 		}
@@ -44,14 +55,14 @@ namespace HeroScripts.Infrastructure
 		private TState ChangeState<TState>() where TState : class, IExitableState
 		{
 			_activeState?.Exit();
-			
+
 			TState state = GetState<TState>();
 			_activeState = state;
 
 			return state;
 		}
-		
-		private TState GetState<TState>() where TState : class, IExitableState 
+
+		private TState GetState<TState>() where TState : class, IExitableState
 		{
 			return _states[typeof(TState)] as TState;
 		}

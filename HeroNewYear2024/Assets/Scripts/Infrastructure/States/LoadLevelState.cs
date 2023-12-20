@@ -6,8 +6,10 @@ using HeroScripts.Enemy;
 using HeroScripts.Hero;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
 using HeroScripts.Logic;
+using HeroScripts.StaticData;
 using HeroScripts.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HeroScripts.Infrastructure
 {
@@ -21,14 +23,17 @@ namespace HeroScripts.Infrastructure
 		private const string SpawnerTag = "EnemySpawner";
 		private readonly IGameFactory _gameFactory;
 		private readonly IPersistentProgressService _progressService;
+		private readonly IStaticDataService _staticDataService;
 
-		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IPersistentProgressService progressService)
+		public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, 
+			IPersistentProgressService progressService, IStaticDataService staticDataService)
 		{
 			_gameStateMachine = gameStateMachine;
 			_sceneLoader = sceneLoader;
 			_loadingCurtain = loadingCurtain;
 			_gameFactory = gameFactory;
 			_progressService = progressService;
+			_staticDataService = staticDataService;
 		}
 
 		public void Enter(string sceneName)
@@ -77,11 +82,12 @@ namespace HeroScripts.Infrastructure
 
 		private void InitSpawners()
 		{
-			foreach (GameObject spawnerGO in GameObject.FindGameObjectsWithTag(SpawnerTag))
+			string sceneKey = SceneManager.GetActiveScene().name;
+			LevelStaticData levelData = _staticDataService.ForLevel(sceneKey);
+
+			foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
 			{
-				EnemySpawner spawner = spawnerGO.GetComponent<EnemySpawner>();
-				
-				_gameFactory.Register(spawner);
+				_gameFactory.CreateSpawner(spawnerData.Position, spawnerData.ID, spawnerData.EnemyTypeID);
 			}
 		}
 		

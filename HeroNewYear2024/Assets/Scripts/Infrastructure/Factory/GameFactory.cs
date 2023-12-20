@@ -82,6 +82,13 @@ namespace HeroScripts.Infrastructure.Factory
 			
 			return lootEntity;
 		}
+		public void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID)
+		{
+			var spawner = InstantiateRegistered(AssetsPath.Spawner, at).GetComponent<EnemySpawner>();
+
+			spawner.ID = spawnerID;
+			spawner.EnemyTypeID = EnemyTypeID;
+		}
 
 		public void CleanUp()
 		{

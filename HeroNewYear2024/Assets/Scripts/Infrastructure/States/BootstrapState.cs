@@ -65,7 +65,7 @@ namespace HeroScripts.Infrastructure
 		private IStaticDataService RegisterStaticData()
 		{
 			var staticData = new StaticDataService();
-			staticData.LoadEnemies();
+			staticData.Load();
 			return staticData;
 		}
 

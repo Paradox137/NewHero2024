@@ -9,7 +9,6 @@ namespace HeroScripts.Infrastructure
 {
 	public interface IGameFactory : IService
 	{
-		void Register(ISavedProgressReader progressReader);
 		GameObject CreateHero(GameObject at);
 		GameObject CreateHud();
 		List<ISavedProgressReader> ProgressReaders { get; }
@@ -17,5 +16,6 @@ namespace HeroScripts.Infrastructure
 		void CleanUp();
 		GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
 		LootEntity CreateLoot();
+		void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID);
 	}
 }

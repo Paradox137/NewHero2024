@@ -4,7 +4,8 @@ namespace HeroScripts.StaticData
 {
 	public interface IStaticDataService : IService
 	{
-		void LoadEnemies();
+		void Load();
 		MonsterStaticData ForEnemy(EnemyTypeID typeID);
+		LevelStaticData ForLevel(string sceneKey);
 	}
 }

@@ -13,7 +13,7 @@ namespace HeroScripts.Logic
 	public class EnemySpawner : MonoBehaviour, ISavedProgress
 	{
 		public EnemyTypeID EnemyTypeID;
-		private string _id;
+		public string ID { get; set; }
 
 		public bool Slain;
 		private IGameFactory _factory;
@@ -21,13 +21,13 @@ namespace HeroScripts.Logic
 
 		private void Awake()
 		{
-			_id = GetComponent<UniqueID>().ID;
+			ID = GetComponent<UniqueID>().ID;
 
 			_factory = AllServices.Container.Single<IGameFactory>();
 		}
 		public void LoadProgress(PlayerProgress progress)
 		{
-			if (progress.KillData.ClearedSpawners.Contains(_id))
+			if (progress.KillData.ClearedSpawners.Contains(ID))
 			{
 				Slain = true;
 			}
@@ -52,7 +52,7 @@ namespace HeroScripts.Logic
 		public void UpdateProgress(PlayerProgress progress)
 		{
 			if(Slain)
-				progress.KillData.ClearedSpawners.Add(_id);
+				progress.KillData.ClearedSpawners.Add(ID);
 		}
 	}
 }
