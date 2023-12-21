@@ -13,4 +13,23 @@ MonoBehaviour:
   m_Name: TestLevel
   m_EditorClassIdentifier: 
   LevelKey: test
-  EnemySpawners: []
+  EnemySpawners:
+  - ID: test_aa82c6af-1fc5-477c-944d-89956433057f
+    EnemyTypeID: 0
+    Position: {x: 13.08, y: 0.63929313, z: 6.42}
+  - ID: test_c929c32e-314a-4edf-a312-08116bcbe681
+    EnemyTypeID: 0
+    Position: {x: 13.05, y: 0.63929313, z: -2.39}
+  - ID: test_9cd14203-0cd2-4e20-a32f-63b4624bd1f0
+    EnemyTypeID: 0
+    Position: {x: -3.58, y: 0.63929313, z: 0.64}
+  - ID: test_660fb662-9441-45a8-be24-cc765417028d
+    EnemyTypeID: 0
+    Position: {x: -8.09, y: 0.63929313, z: 4.93}
+  - ID: test_d043bf77-fcd5-4a25-a8ac-79cd549a6482
+    EnemyTypeID: 0
+    Position: {x: 7.812096, y: 0.63929313, z: 1.0843717}
+  - ID: test_2705a3de-5213-4171-ab99-bf0f4ed49121
+    EnemyTypeID: 0
+    Position: {x: 3.38, y: 0.63929313, z: 5.18}
+  InitialHeroPosition: {x: 3.98, y: 0, z: -5.47}

@@ -28,9 +28,9 @@ namespace HeroScripts.Editor
 
 				levelData.LevelKey = SceneManager.GetActiveScene().name;
         
-				/*levelData.InitialHeroPosition =  GameObject.FindWithTag(InitialPointTag).transform.position;
+				levelData.InitialHeroPosition =  GameObject.FindWithTag(InitialPointTag).transform.position;
         
-				levelData.LevelTransfer.Position = GameObject.FindWithTag(LevelTransferInitialPointTag).transform.position;*/
+				//levelData.LevelTransfer.Position = GameObject.FindWithTag(LevelTransferInitialPointTag).transform.position;
 				
 				EditorUtility.SetDirty(target);
 			}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc54efc66ec4baa804616e8da37c023, type: 3}
+  m_Name: ContinueLevel
+  m_EditorClassIdentifier: 
+  LevelKey: contunie_test
+  EnemySpawners:
+  - ID: contunie_test_f9be15a6-a13a-417a-91f2-3defec214153
+    EnemyTypeID: 0
+    Position: {x: 5.41, y: 0.63929313, z: 3.74}
+  InitialHeroPosition: {x: -4.8, y: 0, z: -6.34}

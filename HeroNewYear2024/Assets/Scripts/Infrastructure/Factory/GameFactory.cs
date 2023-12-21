@@ -31,9 +31,9 @@ namespace HeroScripts.Infrastructure.Factory
 			_randomService = randomService;
 			_persistentProgressService = persistentProgressService;
 		}
-		public GameObject CreateHero(GameObject at)
+		public GameObject CreateHero(Vector3 at)
 		{
-			GameObject hero =InstantiateRegistered(AssetsPath.HeroPath, at.transform.position);
+			GameObject hero =InstantiateRegistered(AssetsPath.HeroPath, at);
 			HeroGameObject = hero;
 			return hero;
 		}

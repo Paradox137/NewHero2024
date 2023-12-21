@@ -62,10 +62,13 @@ namespace HeroScripts.Infrastructure
 		}
 		private void InitGameWorld()
 		{
-			InitSpawners();
+			string sceneKey = SceneManager.GetActiveScene().name;
+			LevelStaticData levelData = _staticDataService.ForLevel(sceneKey);
+			
+			InitSpawners(levelData);
 			InitLootEntities();
 			
-			GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
+			GameObject hero = _gameFactory.CreateHero(levelData.InitialHeroPosition);
 
 			var hud = _gameFactory.CreateHud();
 			
@@ -80,11 +83,8 @@ namespace HeroScripts.Infrastructure
 				Camera.main.GetComponentInParent<CameraFollow>().Follow(hero);
 		}
 
-		private void InitSpawners()
+		private void InitSpawners(LevelStaticData levelData)
 		{
-			string sceneKey = SceneManager.GetActiveScene().name;
-			LevelStaticData levelData = _staticDataService.ForLevel(sceneKey);
-
 			foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
 			{
 				_gameFactory.CreateSpawner(spawnerData.Position, spawnerData.ID, spawnerData.EnemyTypeID);
