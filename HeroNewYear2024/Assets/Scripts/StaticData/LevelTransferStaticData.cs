@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HeroScripts.StaticData
 {
-	/*[Serializable]
+	[Serializable]
 	public class LevelTransferStaticData
 	{
 		public string TransferTo;
@@ -14,5 +14,5 @@ namespace HeroScripts.StaticData
 			TransferTo = transferTo;
 			Position = position;
 		}
-	}*/
+	}
 }

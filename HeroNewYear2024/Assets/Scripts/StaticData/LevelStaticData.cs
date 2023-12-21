@@ -12,6 +12,6 @@ namespace HeroScripts.StaticData
 		public List<EnemySpawnerData> EnemySpawners;
 		
 		public Vector3 InitialHeroPosition;
-		//public LevelTransferStaticData LevelTransfer;
+		public LevelTransferStaticData LevelTransfer;
 	}
 }

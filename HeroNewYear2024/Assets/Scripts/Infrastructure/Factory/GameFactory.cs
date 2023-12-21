@@ -2,6 +2,7 @@
 using HeroScripts.Enemy;
 using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
+using HeroScripts.Infrastructure.States;
 using HeroScripts.Logic;
 using HeroScripts.StaticData;
 using HeroScripts.UI;
@@ -19,17 +20,19 @@ namespace HeroScripts.Infrastructure.Factory
 		private readonly IStaticDataService _staticData;
 		private readonly IRandomService _randomService;
 		private readonly IPersistentProgressService _persistentProgressService;
+		private readonly IGameStateMachine _gameStateMachine;
 
 		public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
 		public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 		
 		public GameFactory(IAssetsProvider assetProvider, IStaticDataService staticData, IRandomService randomService, 
-			IPersistentProgressService persistentProgressService)
+			IPersistentProgressService persistentProgressService, IGameStateMachine gameStateMachine)
 		{
 			_assetProvider = assetProvider;
 			_staticData = staticData;
 			_randomService = randomService;
 			_persistentProgressService = persistentProgressService;
+			_gameStateMachine = gameStateMachine;
 		}
 		public GameObject CreateHero(Vector3 at)
 		{
@@ -90,7 +93,13 @@ namespace HeroScripts.Infrastructure.Factory
 			spawner.ID = spawnerID;
 			spawner.EnemyTypeID = EnemyTypeID;
 		}
-
+		public void CreateLevelTransfer(Vector3 at)
+		{
+			GameObject prefab = InstantiateRegistered(AssetsPath.LevelTransferTrigger, at);
+			LevelTransferTrigger levelTransfer = prefab.GetComponent<LevelTransferTrigger>();
+      
+			levelTransfer.Construct(_gameStateMachine);
+		}
 		public void CleanUp()
 		{
 			ProgressReaders.Clear();

@@ -70,6 +70,8 @@ namespace HeroScripts.Infrastructure
 			
 			GameObject hero = _gameFactory.CreateHero(levelData.InitialHeroPosition);
 
+			_gameFactory.CreateLevelTransfer(levelData.LevelTransfer.Position);
+			
 			var hud = _gameFactory.CreateHud();
 			
 			hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());

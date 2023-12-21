@@ -33,3 +33,6 @@ MonoBehaviour:
     EnemyTypeID: 0
     Position: {x: 3.38, y: 0.63929313, z: 5.18}
   InitialHeroPosition: {x: 3.98, y: 0, z: -5.47}
+  LevelTransfer:
+    TransferTo: contunie_test
+    Position: {x: -4.33, y: 0.07, z: -2.75}

@@ -17,5 +17,6 @@ namespace HeroScripts.Infrastructure
 		GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
 		LootEntity CreateLoot();
 		void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID);
+		void CreateLevelTransfer(Vector3 at);
 	}
 }
