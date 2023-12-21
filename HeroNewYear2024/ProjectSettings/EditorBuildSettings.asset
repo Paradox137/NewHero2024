@@ -14,4 +14,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/contunie_test.unity
     guid: cf4fec29e44ea434ab114264a8bdc174
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: d0e5c4db6162e264b9a2a725bf49c23d, type: 2}
