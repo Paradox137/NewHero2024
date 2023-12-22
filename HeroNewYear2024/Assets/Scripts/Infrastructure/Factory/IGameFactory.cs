@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using HeroScripts.Enemy;
 using HeroScripts.Infrastructure.Services;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
@@ -14,7 +15,7 @@ namespace HeroScripts.Infrastructure
 		List<ISavedProgressReader> ProgressReaders { get; }
 		List<ISavedProgress> ProgressWriters { get; }
 		void CleanUp();
-		GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
+		Task<GameObject> CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
 		LootEntity CreateLoot();
 		void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID);
 		void CreateLevelTransfer(Vector3 at);

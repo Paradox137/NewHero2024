@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using HeroScripts.Data;
 using HeroScripts.Enemy;
 using HeroScripts.Infrastructure;
@@ -29,9 +30,9 @@ namespace HeroScripts.Logic
 			if (!progress.KillData.ClearedSpawners.Contains(ID))
 				Spawn();
 		}
-		private void Spawn()
+		private async void Spawn()
 		{
-			GameObject enemy = _factory.CreateEnemy(EnemyTypeID, transform);
+			GameObject enemy = await _factory.CreateEnemy(EnemyTypeID, transform);
 			_enemyDeath = enemy.GetComponent<EnemyDeath>();
 			_enemyDeath.Happened += Slay;
 		}

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using HeroScripts.Enemy;
 using HeroScripts.Infrastructure.AssetManagement;
 using HeroScripts.Infrastructure.Services.PersistentProgress;
@@ -49,11 +50,14 @@ namespace HeroScripts.Infrastructure.Factory
 
 			return hud;
 		}
-		public GameObject CreateEnemy(EnemyTypeID enemyTypeID, Transform parent)
+		public async Task<GameObject> CreateEnemy(EnemyTypeID enemyTypeID, Transform parent)
 		{
 			MonsterStaticData enemyData = _staticData.ForEnemy(enemyTypeID);
 
-			GameObject enemy = Object.Instantiate(enemyData.prefab, parent.position, Quaternion.identity, parent);
+			var enemyPrefab = await enemyData.PrefabReference.LoadAssetAsync().Task;
+			
+			
+			GameObject enemy = Object.Instantiate(enemyPrefab, parent.position, Quaternion.identity, parent);
 
 			var health = enemy.GetComponent<IHealth>();
 			health.Current = enemyData.HP;
