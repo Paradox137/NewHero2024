@@ -8,7 +8,9 @@ using HeroScripts.Logic;
 using HeroScripts.StaticData;
 using HeroScripts.UI;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
 
 namespace HeroScripts.Infrastructure.Factory
@@ -54,12 +56,15 @@ namespace HeroScripts.Infrastructure.Factory
 		{
 			MonsterStaticData enemyData = _staticData.ForEnemy(enemyTypeID);
 
-			var enemyPrefab = await enemyData.PrefabReference.LoadAssetAsync().Task;
+			AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(enemyData.PrefabReference);
 			
+			GameObject enemyPrefab = await handle.Task;
+			
+			Addressables.Release(handle);
 			
 			GameObject enemy = Object.Instantiate(enemyPrefab, parent.position, Quaternion.identity, parent);
 
-			var health = enemy.GetComponent<IHealth>();
+			IHealth health = enemy.GetComponent<IHealth>();
 			health.Current = enemyData.HP;
 			health.Max = enemyData.HP;
 			
