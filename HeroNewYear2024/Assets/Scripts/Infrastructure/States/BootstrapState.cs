@@ -40,13 +40,13 @@ namespace HeroScripts.Infrastructure
 		{
 			_allServices.RegisterSingle<IGameStateMachine>(_stateMachine);
 			
-			_allServices.RegisterSingle<IInputService>(InputService());
-
-			_allServices.RegisterSingle<IAssetsProvider>(new AssetsProvider());
+			_allServices.RegisterSingle<IAssetsProvider>(RegisterAssetProvider());
 
 			_allServices.RegisterSingle<IStaticDataService>(RegisterStaticData());
-			
+
 			_allServices.RegisterSingle<IRandomService>(new RandomService());
+			
+			_allServices.RegisterSingle<IInputService>(InputService());
 
 			_allServices.RegisterSingle<IPersistentProgressService>(new PersistentProgress());
 
@@ -63,6 +63,13 @@ namespace HeroScripts.Infrastructure
 				_allServices.Single<IGameFactory>()));
 
 		}
+		private IAssetsProvider RegisterAssetProvider()
+		{
+			var assetProvider = new AssetsProvider();
+			assetProvider.Initialize();
+			return assetProvider;
+		}
+		
 		private IStaticDataService RegisterStaticData()
 		{
 			var staticData = new StaticDataService();

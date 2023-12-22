@@ -4,7 +4,7 @@ namespace HeroScripts.Infrastructure.AssetManagement
 	{
 		public const string HudPath = "Hud/hud";
 		public const string HeroPath = "Hero/hero";
-		public const string Loot = "Loot/Loot";
+		public const string Loot = "Loot";
 		public const string Spawner = "SpawnPoint";
 		public const string LevelTransferTrigger = "Levels/LevelTransferTrigger";
 	}

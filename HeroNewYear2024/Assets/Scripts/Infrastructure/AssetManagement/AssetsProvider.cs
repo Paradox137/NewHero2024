@@ -27,9 +27,12 @@ namespace HeroScripts.Infrastructure.AssetManagement
 			var prefab = Resources.Load<GameObject>(path);
 			return Object.Instantiate(prefab);
 		}
-		public Task<T> Load<T>(string address) where T : class
+		public async Task<T> Load<T>(string address) where T : class
 		{
-			throw new System.NotImplementedException();
+			if (_completedCache.TryGetValue(address, out AsyncOperationHandle completedHandle))
+				return completedHandle.Result as T;
+
+			return await RunWithCacheOnComplete(Addressables.LoadAssetAsync<T>(address), address);
 		}
 		public async Task<T> Load<T>(AssetReference assetReference) where T : class
 		{

@@ -40,6 +40,7 @@ namespace HeroScripts.Infrastructure
 		{
 			_loadingCurtain.Show();
 			_gameFactory.CleanUp();
+			_gameFactory.WarmUp();
 			_sceneLoader.Load(sceneName, onLoaded);
 		}
 		public void Exit()
