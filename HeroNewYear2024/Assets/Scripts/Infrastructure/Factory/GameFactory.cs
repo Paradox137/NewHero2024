@@ -43,16 +43,16 @@ namespace HeroScripts.Infrastructure.Factory
 			await _assetProvider.Load<GameObject>(AssetAddress.Loot);
 			await _assetProvider.Load<GameObject>(AssetAddress.Spawner);
 		}
-		public GameObject CreateHero(Vector3 at)
+		public async Task<GameObject> CreateHero(Vector3 at)
 		{
-			GameObject hero =InstantiateRegistered(AssetAddress.HeroPath, at);
+			GameObject hero = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 			HeroGameObject = hero;
 			return hero;
 		}
 		
-		public GameObject CreateHud()
+		public async Task<GameObject> CreateHud()
 		{
-			GameObject hud = InstantiateRegistered(AssetAddress.HudPath);
+			GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HudPath);
 			
 			hud.GetComponentInChildren<LootCounter>().Construct(_persistentProgressService.Progress.WorldData);
 
@@ -108,11 +108,12 @@ namespace HeroScripts.Infrastructure.Factory
 			spawner.ID = spawnerID;
 			spawner.EnemyTypeID = EnemyTypeID;
 		}
-		public void CreateLevelTransfer(Vector3 at)
+		public async Task CreateLevelTransfer(Vector3 at)
 		{
-			GameObject prefab = InstantiateRegistered(AssetAddress.LevelTransferTrigger, at);
+			GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.LevelTransferTrigger, at);
+			
 			LevelTransferTrigger levelTransfer = prefab.GetComponent<LevelTransferTrigger>();
-      
+
 			levelTransfer.Construct(_gameStateMachine);
 		}
 		public void CleanUp()
@@ -147,18 +148,18 @@ namespace HeroScripts.Infrastructure.Factory
 			
 			return gameObject;
 		}
-		private GameObject InstantiateRegistered(string prefabPath, Vector3 position)
+		private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 position)
 		{
-			GameObject gameObject = _assetProvider.Instantiate(prefabPath, position);
+			GameObject gameObject = await _assetProvider.Instantiate(prefabPath, position);
 
 			foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
 				Register(progressReader);
 			
 			return gameObject;
 		}
-		private GameObject InstantiateRegistered(string prefabPath)
+		private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
 		{
-			GameObject gameObject = _assetProvider.Instantiate(prefabPath);
+			GameObject gameObject = await _assetProvider.Instantiate(prefabPath);
 
 			foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
 				Register(progressReader);

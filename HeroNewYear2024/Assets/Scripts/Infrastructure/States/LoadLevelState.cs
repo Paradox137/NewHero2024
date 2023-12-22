@@ -64,21 +64,27 @@ namespace HeroScripts.Infrastructure
 		}
 		private async Task InitGameWorld()
 		{
-			string sceneKey = SceneManager.GetActiveScene().name;
-			LevelStaticData levelData = _staticDataService.ForLevel(sceneKey);
-			
+			LevelStaticData levelData = _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
 			await InitSpawners(levelData);
 			await InitLootEntities();
-			
-			GameObject hero = _gameFactory.CreateHero(levelData.InitialHeroPosition);
-
-			_gameFactory.CreateLevelTransfer(levelData.LevelTransfer.Position);
-			
-			var hud = _gameFactory.CreateHud();
-			
-			hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
-
+			GameObject hero = await InitHero(levelData);
+			await InitLevelTransfer(levelData);
+			await InitHud(hero);
 			CameraFollow(hero);
+		}
+		private async Task InitHud(GameObject hero)
+		{
+			var hud = await _gameFactory.CreateHud();
+
+			hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
+		}
+		private async Task<GameObject> InitHero(LevelStaticData levelData) 
+		{
+			return  await _gameFactory.CreateHero(levelData.InitialHeroPosition);
+		}
+		private Task InitLevelTransfer(LevelStaticData levelData) 
+		{
+			return _gameFactory.CreateLevelTransfer(levelData.LevelTransfer.Position);
 		}
 
 		private void CameraFollow(GameObject hero)

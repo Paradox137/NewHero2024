@@ -16,17 +16,16 @@ namespace HeroScripts.Infrastructure.AssetManagement
 			Addressables.InitializeAsync();
 		}
 
-		public GameObject Instantiate(string path, Vector3 at)
+		public Task<GameObject> Instantiate(string address, Vector3 at)
 		{
-			var prefab = Resources.Load<GameObject>(path);
-			return Object.Instantiate(prefab, at, Quaternion.identity);
+			return Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
 		}
 
-		public GameObject Instantiate(string path)
+		public Task<GameObject> Instantiate(string address)
 		{
-			var prefab = Resources.Load<GameObject>(path);
-			return Object.Instantiate(prefab);
+			return Addressables.InstantiateAsync(address).Task;
 		}
+		
 		public async Task<T> Load<T>(string address) where T : class
 		{
 			if (_completedCache.TryGetValue(address, out AsyncOperationHandle completedHandle))
@@ -34,6 +33,7 @@ namespace HeroScripts.Infrastructure.AssetManagement
 
 			return await RunWithCacheOnComplete(Addressables.LoadAssetAsync<T>(address), address);
 		}
+		
 		public async Task<T> Load<T>(AssetReference assetReference) where T : class
 		{
 			if (_completedCache.TryGetValue(assetReference.AssetGUID, out AsyncOperationHandle completedHandle))
@@ -41,6 +41,7 @@ namespace HeroScripts.Infrastructure.AssetManagement
 
 			return await RunWithCacheOnComplete(Addressables.LoadAssetAsync<T>(assetReference), assetReference.AssetGUID);
 		}
+		
 		private async Task<T> RunWithCacheOnComplete<T>(AsyncOperationHandle<T> handle, string cacheKey) where T : class
 		{
 			handle.Completed += completeHandle =>
@@ -52,6 +53,7 @@ namespace HeroScripts.Infrastructure.AssetManagement
 
 			return await handle.Task;
 		}
+		
 		private void AddHandle<T>(string key, AsyncOperationHandle handle) where T : class
 		{
 			if (!_handles.TryGetValue(key, out List<AsyncOperationHandle> resourceHandles))
@@ -62,6 +64,7 @@ namespace HeroScripts.Infrastructure.AssetManagement
 
 			resourceHandles.Add(handle);
 		}
+		
 		public void Cleanup()
 		{
 			foreach (List<AsyncOperationHandle> resourceHandles in _handles.Values)

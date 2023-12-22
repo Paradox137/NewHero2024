@@ -14,10 +14,7 @@ namespace HeroScripts.UI
 		{
 			_worldData = worldData;
 			_worldData.LootData.Changed += UpdateCounter;
-		}
-		
-		private void Start()
-		{
+			
 			UpdateCounter();
 		}
 
