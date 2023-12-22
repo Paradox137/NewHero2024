@@ -37,16 +37,22 @@ namespace HeroScripts.Infrastructure.Factory
 			_persistentProgressService = persistentProgressService;
 			_gameStateMachine = gameStateMachine;
 		}
+
+		public async Task WarmUp()
+		{
+			await _assetProvider.Load<GameObject>(AssetAddress.Loot);
+			await _assetProvider.Load<GameObject>(AssetAddress.Spawner);
+		}
 		public GameObject CreateHero(Vector3 at)
 		{
-			GameObject hero =InstantiateRegistered(AssetsPath.HeroPath, at);
+			GameObject hero =InstantiateRegistered(AssetAddress.HeroPath, at);
 			HeroGameObject = hero;
 			return hero;
 		}
 		
 		public GameObject CreateHud()
 		{
-			GameObject hud = InstantiateRegistered(AssetsPath.HudPath);
+			GameObject hud = InstantiateRegistered(AssetAddress.HudPath);
 			
 			hud.GetComponentInChildren<LootCounter>().Construct(_persistentProgressService.Progress.WorldData);
 
@@ -56,12 +62,8 @@ namespace HeroScripts.Infrastructure.Factory
 		{
 			MonsterStaticData enemyData = _staticData.ForEnemy(enemyTypeID);
 
-			AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(enemyData.PrefabReference);
-			
-			GameObject enemyPrefab = await handle.Task;
-			
-			Addressables.Release(handle);
-			
+			GameObject enemyPrefab = await _assetProvider.Load<GameObject>(enemyData.PrefabReference);
+
 			GameObject enemy = Object.Instantiate(enemyPrefab, parent.position, Quaternion.identity, parent);
 
 			IHealth health = enemy.GetComponent<IHealth>();
@@ -89,14 +91,14 @@ namespace HeroScripts.Infrastructure.Factory
 		}
 		public LootEntity CreateLoot()
 		{
-			var lootEntity = InstantiateRegistered(AssetsPath.Loot).GetComponent<LootEntity>();
+			var lootEntity = InstantiateRegistered(AssetAddress.Loot).GetComponent<LootEntity>();
 			lootEntity.Construct(_persistentProgressService.Progress.WorldData);
 			
 			return lootEntity;
 		}
 		public void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID)
 		{
-			var spawner = InstantiateRegistered(AssetsPath.Spawner, at).GetComponent<SpawnPoint>();
+			var spawner = InstantiateRegistered(AssetAddress.Spawner, at).GetComponent<SpawnPoint>();
 
 			spawner.Construct(this);
 			spawner.ID = spawnerID;
@@ -104,7 +106,7 @@ namespace HeroScripts.Infrastructure.Factory
 		}
 		public void CreateLevelTransfer(Vector3 at)
 		{
-			GameObject prefab = InstantiateRegistered(AssetsPath.LevelTransferTrigger, at);
+			GameObject prefab = InstantiateRegistered(AssetAddress.LevelTransferTrigger, at);
 			LevelTransferTrigger levelTransfer = prefab.GetComponent<LevelTransferTrigger>();
       
 			levelTransfer.Construct(_gameStateMachine);
@@ -113,6 +115,8 @@ namespace HeroScripts.Infrastructure.Factory
 		{
 			ProgressReaders.Clear();
 			ProgressWriters.Clear();
+			
+			_assetProvider.Cleanup();
 		}
 		public void Register(ISavedProgressReader progressReader)
 		{
