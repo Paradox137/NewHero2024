@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace HeroScripts.StaticData
 {
@@ -25,6 +26,6 @@ namespace HeroScripts.StaticData
 		[Range(0,10)]
 		public float MoveSpeed = 3;
 		
-		public GameObject prefab;
+		public AssetReferenceGameObject PrefabReference;
 	}
 }
