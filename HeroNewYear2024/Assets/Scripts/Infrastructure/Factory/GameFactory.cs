@@ -89,16 +89,20 @@ namespace HeroScripts.Infrastructure.Factory
 			
 			return enemy;
 		}
-		public LootEntity CreateLoot()
+		public async Task<LootEntity> CreateLoot()
 		{
-			var lootEntity = InstantiateRegistered(AssetAddress.Loot).GetComponent<LootEntity>();
+			GameObject prefab = await _assetProvider.Load<GameObject>(AssetAddress.Loot);
+			
+			var lootEntity = InstantiateRegistered(prefab).GetComponent<LootEntity>();
 			lootEntity.Construct(_persistentProgressService.Progress.WorldData);
 			
 			return lootEntity;
 		}
-		public void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID)
+		public async Task CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID)
 		{
-			var spawner = InstantiateRegistered(AssetAddress.Spawner, at).GetComponent<SpawnPoint>();
+			GameObject prefab = await _assetProvider.Load<GameObject>(AssetAddress.Spawner);
+			
+			SpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<SpawnPoint>();
 
 			spawner.Construct(this);
 			spawner.ID = spawnerID;
@@ -125,7 +129,24 @@ namespace HeroScripts.Infrastructure.Factory
 			
 			ProgressReaders.Add(progressReader);
 		}
+		private GameObject InstantiateRegistered(GameObject prefab)
+		{
+			GameObject gameObject = Object.Instantiate(prefab);
 
+			foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
+				Register(progressReader);
+			
+			return gameObject;
+		}
+		private GameObject InstantiateRegistered(GameObject prefab, Vector3 position)
+		{
+			GameObject gameObject = Object.Instantiate(prefab, position, Quaternion.identity);
+
+			foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
+				Register(progressReader);
+			
+			return gameObject;
+		}
 		private GameObject InstantiateRegistered(string prefabPath, Vector3 position)
 		{
 			GameObject gameObject = _assetProvider.Instantiate(prefabPath, position);

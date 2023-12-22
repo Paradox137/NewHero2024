@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Xml;
 using HeroScripts.CameraLogic;
 using HeroScripts.Data;
@@ -47,9 +48,9 @@ namespace HeroScripts.Infrastructure
 		{
 			_loadingCurtain.Hide();
 		}
-		private void onLoaded()
+		private async void onLoaded()
 		{
-			InitGameWorld();
+			await InitGameWorld();
 			InformProgressReaders();
 			
 			_gameStateMachine.Enter<GameLoopState>();
@@ -61,13 +62,13 @@ namespace HeroScripts.Infrastructure
 				progressReader.LoadProgress(_progressService.Progress);
 			}
 		}
-		private void InitGameWorld()
+		private async Task InitGameWorld()
 		{
 			string sceneKey = SceneManager.GetActiveScene().name;
 			LevelStaticData levelData = _staticDataService.ForLevel(sceneKey);
 			
-			InitSpawners(levelData);
-			InitLootEntities();
+			await InitSpawners(levelData);
+			await InitLootEntities();
 			
 			GameObject hero = _gameFactory.CreateHero(levelData.InitialHeroPosition);
 
@@ -86,19 +87,19 @@ namespace HeroScripts.Infrastructure
 				Camera.main.GetComponentInParent<CameraFollow>().Follow(hero);
 		}
 
-		private void InitSpawners(LevelStaticData levelData)
+		private async Task InitSpawners(LevelStaticData levelData)
 		{
 			foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
 			{
-				_gameFactory.CreateSpawner(spawnerData.Position, spawnerData.ID, spawnerData.EnemyTypeID);
+				await _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.ID, spawnerData.EnemyTypeID);
 			}
 		}
 		
-		private void InitLootEntities()
+		private async Task InitLootEntities()
 		{
 			foreach (KeyValuePair<string, LootEntityData> item in _progressService.Progress.WorldData.LootData.LootEntitiesOnScene.Dictionary)
 			{
-				LootEntity lootPiece = _gameFactory.CreateLoot();
+				LootEntity lootPiece = await _gameFactory.CreateLoot();
 				lootPiece.GetComponent<UniqueID>().ID = item.Key;
 				lootPiece.Initialize(item.Value.Loot);
 				lootPiece.transform.position = item.Value.Position.AsUnityVector3();

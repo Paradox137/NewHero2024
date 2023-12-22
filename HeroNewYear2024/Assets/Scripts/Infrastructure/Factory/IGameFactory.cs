@@ -16,8 +16,8 @@ namespace HeroScripts.Infrastructure
 		List<ISavedProgress> ProgressWriters { get; }
 		void CleanUp();
 		Task<GameObject> CreateEnemy(EnemyTypeID enemyTypeID, Transform parent);
-		LootEntity CreateLoot();
-		void CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID);
+		Task<LootEntity> CreateLoot();
+		Task CreateSpawner(Vector3 at, string spawnerID, EnemyTypeID EnemyTypeID);
 		void CreateLevelTransfer(Vector3 at);
 		Task WarmUp();
 	}

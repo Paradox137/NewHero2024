@@ -27,11 +27,11 @@ namespace HeroScripts.Enemy
 			EnemyDeath.Happened += SpawnLoot;
 		}
 
-		private void SpawnLoot()
+		private async void SpawnLoot()
 		{
 			EnemyDeath.Happened -= SpawnLoot;
 			
-			LootEntity loot = _factory.CreateLoot();
+			LootEntity loot = await _factory.CreateLoot();
 			loot.transform.position = transform.position;
 			loot.GetComponent<UniqueID>().GenerateId();
 			

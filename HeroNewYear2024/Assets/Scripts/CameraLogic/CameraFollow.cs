@@ -12,6 +12,11 @@ namespace HeroScripts.CameraLogic
 		private Vector3 velocity = Vector3.zero;
 		private void LateUpdate()
 		{
+			if (_following == null)
+			{
+				return;
+			}
+			
 			MoveWithTarget();
 		}
 
